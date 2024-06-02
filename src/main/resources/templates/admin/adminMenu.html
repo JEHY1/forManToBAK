@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="/css/adminAdditems.css">
+
+    <script src="/js/additems.js"></script>
+
+
+
+    <title>관리자 페이지</title>
+</head>
+<body>
+
+<header class="grid-container-header">
+    <div class="top_util">
+        <strong>관리자 화면</strong>
+        <span> | </span>
+        <a href="#">로그아웃</a>
+
+    </div>
+    <div class="header_inner">
+        <img src="log.jpg" alt="포맨토 로고">
+
+        <div class="admin">
+            <h1>관리자 페이지</h1>
+        </div>
+
+        <div>
+            <img src="https://pics.gmarket.co.kr/pc/single/kr/common/image__header-mypage.svg" alt="마이페이지 아이콘">
+
+            <div class="cart1">
+                <img src="https://pics.gmarket.co.kr/pc/single/kr/common/image__header-cart.svg" alt="장바구니">
+            </div>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="grid-container">
+    <aside class="grid-container-aside">
+        <div class="admin-list">
+            <h3>관리자 목록</h3>
+
+            <ul>
+                <li>
+                    <a href="#">회원관리</a>
+                </li>
+                <hr>
+                <li>
+                    <a href="#">상품등록</a>
+                </li>
+                <hr>
+                <li>
+                    <a href="#">상품목록</a>
+                </li>
+                <hr>
+                <li>
+                    <a href="#">주문내역</a>
+                </li>
+                <hr>
+                <li>
+                    <a href="#">게시판</a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <main class="grid-container-main">
+
+        <!-- 회원 관리 폼 -->
+        <form method="POST" action="/adminItemList/create">
+            <legend id="container">
+                <h1>상품 목록 페이지</h1>
+            </legend>
+            <hr>
+
+            <!-- 회원 목록 테이블 -->
+            <table class="table board-table table-hover">
+                <thead>
+                <tr>
+
+                    <th>상품 분류</th>
+                    <th>제품이름</th>
+                    <th>상세내용</th>
+                    <th>내용물의 용량/중량</th>
+                    <th>제품개요(사용범위)</th>
+                    <th>사용기간(개봉후)</th>
+                    <th>사용방법</th>
+                    <th>판매업자/제조업자</th>
+                    <th>제조국</th>
+                    <th>주의사항</th>
+                    <th>품징보증기준</th>
+                    <th>소비자상담전화번호</th>
+                    <th>판매량</th>
+                    <th>회사명</th>
+                    <th>가격</th>
+                </tr>
+
+
+                </thead>
+
+                <tbody>
+                <p>현재 시간: <span id="current-time"></span></p>
+
+                <tr th:each="product : ${additemlist}" class="trline">
+
+                    <td th:text="${product.categoryDetailId}"></td>
+                    <td th:text="${product.name}"></td>
+                    <td th:text="${product.details}"></td>
+                    <td th:text="${product.weight}"></td>
+                    <td th:text="${product.summary}"></td>
+                    <td th:text="${product.period}"></td>
+                    <td th:text="${product.manual}"></td>
+                    <td th:text="${product.manufacturer}"></td>
+                    <td th:text="${product.country}"></td>
+                    <td th:text="${product.precautions}"></td>
+                    <td th:text="${product.assurance}"></td>
+                    <td th:text="${product.counselorPhoneNumber}"></td>
+                    <td th:text="${product.saleCount}"></td>
+                    <td th:text="${product.company}"></td>
+                    <td th:text="${product.price}"></td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
+
+
+
+        </form>
+
+    </main>
+
+</div>
+
+
+
+<!-- 정해지지 않은 푸터 -->
+<footer>
+    <div>뭐 넣을지 모름
+        <p>
+            to do...
+        </p>
+        카테고리 정렬, 체크박스 선택 ,주문 링크,
+    </div>
+</footer>
+
+</div>
+
+<script type="text/javascript">
+    function updateTime() {
+        var now = new Date();
+        var hour = now.getHours();
+        var minute = now.getMinutes();
+        var second = now.getSeconds();
+
+        hour = (hour < 10 ? "0" : "") + hour;
+        minute = (minute < 10 ? "0" : "") + minute;
+        second = (second < 10 ? "0" : "") + second;
+
+        document.getElementById("current-time").innerText = hour + ":" + minute + ":" + second;
+    }
+
+    // 매 초마다 updateTime 함수를 호출하여 시간을 업데이트
+    setInterval(updateTime, 1000);
+</script>
+
+</body>
+</html>

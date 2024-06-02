@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Confirmation</title>
+</head>
+<body>
+<h1>Order Confirmation</h1>
+<h2>Product IDs:</h2>
+<ul>
+    <li th:each="id : ${ids}" th:text="${id}"></li>
+</ul>
+<h2>Counts:</h2>
+<ul>
+    <li th:each="count : ${counts}" th:text="${count}"></li>
+</ul>
+</body>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>폴더 선택</title>
+</head>
+<body>
+<h1>폴더 선택</h1>
+<input type="file" id="folderInput" webkitdirectory directory multiple style="display: none;">
+<button onclick="openFolderDialog()">폴더 선택</button>
+<p id="selectedFolder"></p>
+
+<script>
+    function openFolderDialog() {
+      document.getElementById('folderInput').click();
+    }
+
+    document.getElementById('folderInput').addEventListener('change', function() {
+      var selectedFolder = document.getElementById('folderInput').files[0];
+      if (selectedFolder) {
+        document.getElementById('selectedFolder').textContent = "선택된 폴더: " + selectedFolder.path;
+      } else {
+        document.getElementById('selectedFolder').textContent = "폴더를 선택해주세요.";
+      }
+    });
+</script>
+</body>
+</html>
+
+</html>

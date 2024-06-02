@@ -1,0 +1,487 @@
+<!--세정-->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Document</title>
+    <style>
+        * {
+            font-size: 13px;
+        }
+
+        body {}
+
+        .grid-container {
+            display: grid;
+            grid-template-areas:
+                /* "header header" */
+                "sidebar content"
+                "footer footer";
+            grid-template-columns: 1fr 3fr;
+            width: 1020px;
+            margin: auto;
+            margin-top: 20px;
+        }
+
+        .grid-container-header {
+            display: grid;
+            /* grid-template-areas:
+            "top_util"
+            "header_inner"
+            ; */
+
+            /* grid-template-columns: 1fr 3fr; */
+        }
+
+        .top_util {
+            width: 900px;
+            height: 30px;
+            text-align: right;
+            margin: auto;
+            /* grid-area: top_util; */
+        }
+
+        .top_util a {
+            margin: 0px 0px 0px 4px;
+        }
+
+        .header_inner {
+            /* grid-area: header_inner; */
+            margin: auto;
+            height: 90px;
+            display: flex;
+
+            /* grid-template-columns: auto 1fr; 로고와 검색창 열 생성 */
+        }
+
+        .header_inner img {
+            width: 246px;
+            height: 40px;
+            margin-top: 15px;
+
+
+
+        }
+
+        header {
+            height: 160px;
+            grid-area: header;
+            border-bottom: 2px solid black;
+
+        }
+
+        .top_cartegory {
+            height: 43px;
+            border-top: 1px solid #9999;
+            text-align: center;
+
+        }
+
+        .top_cartegory a {
+            font-size: 15px;
+            margin: 0px;
+        }
+
+        .top_cartegory ul {
+            /* 카테고리 위치 더 나은 방법이 있나 */
+            margin-left: 23%;
+        }
+
+
+        .grid-container-aside {
+            /* display: grid; */
+            width: 130px;
+            float: left;
+            /* 왼쪽 위치 */
+            padding: 20px 0px 0px 5px;
+
+
+        }
+
+        .grid-container-main {
+            /* display: grid; */
+            /* width: 100%; */
+            float: right;
+            /* 추가: 오른쪽에 위치 */
+            padding: 20px 0px;
+
+        }
+
+
+        .category {
+            text-align: left;
+
+        }
+
+
+
+        main {
+            text-align: center;
+            grid-area: content;
+            padding: 20px;
+        }
+
+        aside {
+            grid-area: sidebar;
+            margin: 0px;
+
+        }
+
+        footer {
+            height: 150px;
+            grid-area: footer;
+            background-color: #9999;
+        }
+
+        ul {
+            line-height: 30px;
+            list-style: none;
+            padding: 0;
+        }
+
+        .cart1 {
+            margin: -55px 0px 0px 90px;
+        }
+
+        .search {
+            position: relative;
+            width: 300px;
+            margin-bottom: 20px;
+            margin: 0px 0px 0px 60px;
+            padding: 15px 30px 0px 20px;
+        }
+
+        .search input {
+            width: 300px;
+            border: 2px solid #bbb;
+            border-radius: 30px;
+            padding: 10px 12px;
+            font-size: 14px;
+        }
+
+        .search img {
+            position: absolute;
+            width: 30px;
+            top: 2px;
+            right: 0px;
+            margin: 15px 0px 0px 0px;
+        }
+
+        a {
+            text-decoration-line: none;
+        }
+
+        a:link {
+            color: black;
+
+        }
+
+        a:visited {
+            color: black;
+        }
+
+        a:hover {}
+
+        a:active {
+            color: green
+        }
+
+
+
+        .main_table {}
+
+
+        /* 테이블안 내용 가운데 정렬 */
+        td {
+            vertical-align: middle;
+        }
+
+
+        .content-container {}
+
+
+
+        .grid-container-main li {
+            /* background-color: #e6e3e399; */
+            text-align: left;
+        }
+
+
+        /* 새로 추가된 클래스 */
+
+         .line{
+            width: 470px;
+            height: 230px;
+        }
+        .txtGdasCont{
+            width: 468px;
+            height: 200px;
+        }
+
+        .imgArea{
+              width: 450px;
+              height:90px
+        }
+
+        .imgpoto{
+          text-align: left;
+          height: 200px;
+        }
+
+
+        .topIntroduction{
+         border-bottom : solid #9999 2px;
+         height:100px;
+         text-align: left;
+
+        }
+
+        .topIntroduction img{
+         float: left;
+        }
+
+
+    </style>
+</head>
+
+<body>
+
+
+<header class="grid-container-header">
+    <div class="top_util">
+        <strong>이용자 닉네임</strong>
+        <span> | </span>
+        <a href="#">로그아웃</a>
+
+    </div>
+    <div class="header_inner">
+        <img src="https://static.oliveyoung.co.kr/pc-static-root/image/comm/h1_logo.png" alt="올리브영 로고">
+
+        <div class="search">
+            <input type="text" placeholder="검색어 입력">
+            <img src="https://bullang.com/morenvyimg/top_search.svg" alt="Search Icon">
+        </div>
+
+        <div>
+            <img src="https://pics.gmarket.co.kr/pc/single/kr/common/image__header-mypage.svg" alt="마이페이지 아이콘">
+
+            <div class="cart1">
+                <img src="https://pics.gmarket.co.kr/pc/single/kr/common/image__header-cart.svg" alt="장바구니">
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 카테고리 -->
+    <div class="top_cartegory">
+
+        <ul class="nav nav-pills">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                   aria-expanded="false">카테고리</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#">Separated link</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <!-- <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            </li> -->
+        </ul>
+
+
+    </div>
+
+</header>
+
+
+<!-- aside 사이드바 -->
+<div class="grid-container">
+    <aside class="grid-container-aside">
+        <div class="categoryta">
+
+            <ul>
+                <li style="margin-bottom: 15px;"><a href="#" style="font-size: 25px;">마이페이지</a></li>
+                <li style="font-size: 17px; font-weight: bolder;">마이쇼핑</li>
+
+                <li><a href="#">주문/배송조회</a></li>
+                <li><a href="#">취소/반품/교환 내역</a></li>
+                <hr>
+                <li><a href="#">장바구니</a></li>
+                <li><a href="#">위시리스트</a></li>
+                <li><a href="#">히스토리</a></li>
+                <hr>
+                <li style="font-size: 18px; font-weight: bolder;">마이활동</li>
+                <li><a href="#">리뷰</a></li>
+                <li><a href="#">QnA</a></li>
+
+            </ul>
+        </div>
+    </aside>
+
+
+    <!-- 메인 -->
+    <main class="grid-container-main">
+
+
+        <h3 style="  text-align: left; ">QnA</h3>
+        <hr>
+
+        <form method="post" action="/review">
+            <table class="table">
+                <thead class="table-light">
+
+                <tr>
+                    <th style="min-width: 300px; max-width: 300px; height: 100%; ">상품
+                    </th>
+                    <th>작성기간</th>
+                    <th>리뷰작성</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="view : ${views}">
+                    <td>
+                        <img src="https://ssl.pstatic.net/melona/libs/1378/1378592/98b3738dc17cc2456043_20240503142548874.png"
+                             style="width: 85px; height: 85px;">
+                        <span>회사이름</span>
+                        <br>
+                        <span>제품이름</span>
+
+                    </td>
+                    <td th:text="${view.deadline}">작성기간</td>
+
+                    <td>
+
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop">
+                            리뷰작성
+                        </button>
+
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+                             data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="staticBackdropLabel">리뷰작성</h5>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <div class="topIntroduction">
+                                            <dl>
+                                                <img src="https://ssl.pstatic.net/melona/libs/1378/1378592/98b3738dc17cc2456043_20240503142548874.png"
+                                                     style="width: 85px; height: 85px;">
+                                                <dt>회사이름</dt>
+                                                <dd>제품명</dd>
+                                            </dl>
+                                        </div>
+
+                                        <p style="text-align: left; padding-top : 10px">솔직한 상품 리뷰를 남겨주세요</p>
+                                        <div class="line">
+                                            <!--                                            required="required" 넣으면 db에 안넘어가짐-->
+                                            <textarea placeholder="리뷰를 작성해주세요." class="txtGdasCont" cols="40" rows="10"  name="content" ></textarea>
+                                            <!--                                            <input type="text" id="writeReview" name="content">-->
+                                        </div>
+
+
+                                        <div class="imgpoto">
+                                            <strong>포토</strong>
+                                            <ul class="imgArea">
+                                                <li>
+                                                    <div class="mb-3">
+                                                        <input class="form-control form-control-sm" id="poto1"
+                                                               type="file" name="photoName1">
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="mb-3">
+                                                        <input class="form-control form-control-sm" id="poto2"
+                                                               type="file" name="photoName2">
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="mb-3">
+                                                        <input class="form-control form-control-sm" id="poto3"
+                                                               type="file" name="photoName3">
+                                                    </div>
+                                                </li>
+
+                                            </ul>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="reset" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close
+                                        </button>
+                                        <button type="submit" class="btn btn-primary" onclick="sendData()">등록하기
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </td>
+                </tr>
+
+
+                </tbody>
+            </table>
+
+
+        </form>
+
+
+        <div style="height: 600px; ">
+
+            <p>공백이 없어 넣은 높이 600px</p>
+        </div>
+
+    </main>
+
+
+    <!-- 정해지지 않은 푸터 -->
+    <footer>
+        <div>뭐 넣을지 모름
+            <p>
+                to do...
+            </p>
+            카테고리 정렬, 체크박스 선택 ,주문 링크,
+        </div>
+    </footer>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+<!--<script src="MyPageReview.js"></script>-->
+
+</body>
+
+
+</html>

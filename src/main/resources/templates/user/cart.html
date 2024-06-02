@@ -1,0 +1,336 @@
+<!--세정-->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/cart.css">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+<header class="grid-container-header">
+    <div class="top_util">
+        <strong>이용자 닉네임</strong>
+        <span> | </span>
+        <a>로그아웃</a>
+
+    </div>
+    <div class="header_inner">
+        <img src="https://static.oliveyoung.co.kr/pc-static-root/image/comm/h1_logo.png" alt="올리브영 로고">
+
+        <div class="search">
+            <input type="text" placeholder="검색어 입력">
+            <img src="https://bullang.com/morenvyimg/top_search.svg" alt="Search Icon">
+        </div>
+
+        <div>
+            <img src="https://pics.gmarket.co.kr/pc/single/kr/common/image__header-mypage.svg" alt="마이페이지 아이콘">
+
+            <div class="cart1">
+                <img src="https://pics.gmarket.co.kr/pc/single/kr/common/image__header-cart.svg" alt="장바구니">
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 카테고리 -->
+    <div class="top_cartegory">
+
+        <ul class="nav nav-pills">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"  role="button"
+                   aria-expanded="false">카테고리</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" >Action</a></li>
+                    <li><a class="dropdown-item" >Another action</a></li>
+                    <li><a class="dropdown-item" >Something else here</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item">Separated link</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" >Link</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" >Link</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" >Link</a>
+            </li>
+
+        </ul>
+
+
+    </div>
+
+</header>
+
+
+
+<div class="grid-container">
+    <aside class="grid-container-aside">
+        <div class="categoryta">
+
+
+            <ul>
+                <li style="margin-bottom: 15px;"><a  style="font-size: 25px;">마이페이지</a></li>
+                <li style="font-size: 17px; font-weight: bolder;">마이쇼핑</li>
+
+                <li><a >주문/배송조회</a></li>
+                <li><a >취소/반품/교환 내역</a></li>
+                <hr>
+                <li><a >장바구니</a></li>
+                <li><a >위시리스트</a></li>
+                <li><a >히스토리</a></li>
+                <hr>
+                <li style="font-size: 18px; font-weight: bolder;">마이활동</li>
+                <li><a >리뷰</a></li>
+                <li><a >QnA</a></li>
+
+
+
+            </ul>
+        </div>
+    </aside>
+
+
+
+    <main class="grid-container-main">
+        <div>
+
+            <h3 style="  text-align: left; ">장바구니</h3>
+            <hr>
+
+            <form action="/selectUpdate" method="post">
+
+                <div class="main_table">
+                    <table class="table" style="margin-top: 20px;">
+                        <thead class="table-light">
+                        <tr>
+                            <th style="text-align: center;"><input type="checkbox" id="checkAll"></th>
+                            <th>상품/옵션 정보</th>
+                            <th>수량</th>
+                            <th>판매가</th>
+                            <th>구매가</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr th:each="cart : ${carts}">
+                            <input type="hidden" class="cartIds" th:value="${cart.cartId}">
+                            <input type="hidden" class="productIds"  th:value="${cart.productId}">
+                            <input type="hidden" class="countOri"  th:value="${cart.count}">
+                            <input type="hidden" class="customerId"  th:value="${cart.customerId}">
+
+
+                            <td><input type="checkbox" class="chk"></td>
+                            <td style="min-width: 430px; max-width: 430px; height: 100%;  ">
+                                <!--                                <img src="young.png" width="85px" height="85px">-->
+                                <span th:text="${cart.company}"></span>
+                                <p th:text="${cart.productName}">[2주모공세럼]메이크프렘 엔드포어 베지놀 세럼50ml</p>
+
+                            </td>
+                            <!--                                하나의 아이디만 찾기 위해서 -->
+                            <!--                            <input type="hidden" th:id="productId+${cart.productId}">-->
+                            <!-- <td><select name="count" onchange="alert('수량 변경이 완료되었습니다')"> -->
+                            <td><select class="priceCount" onchange="changeCount()" >
+
+
+
+                                <div th:if="${cart.count == 1}">
+                                    <option value="1" selected>1</option>
+                                </div>
+                                <div th:if="${cart.count != 1}">
+                                    <option value="1">1</option>
+                                </div>
+
+                                <div th:if="${cart.count == 2}">
+                                    <option value="2" selected>2</option>
+                                </div>
+                                <div th:if="${cart.count != 2}">
+                                    <option value="2">2</option>
+                                </div>
+
+                                <div th:if="${cart.count == 3}">
+                                    <option value="3" selected>3</option>
+                                </div>
+                                <div th:if="${cart.count != 3}">
+                                    <option value="3">3</option>
+                                </div>
+
+                                <div th:if="${cart.count == 4}">
+                                    <option value="4" selected>4</option>
+                                </div>
+                                <div th:if="${cart.count != 4}">
+                                    <option value="4">4</option>
+                                </div>
+
+                                <div th:if="${cart.count == 5}">
+                                    <option value="5" selected>5</option>
+                                </div>
+                                <div th:if="${cart.count != 5}">
+                                    <option value="5">5</option>
+                                </div>
+
+                                <div th:if="${cart.count == 6}">
+                                    <option value="6" selected>6</option>
+                                </div>
+                                <div th:if="${cart.count != 6}">
+                                    <option value="6">6</option>
+                                </div>
+
+                                <div th:if="${cart.count == 7}">
+                                    <option value="7" selected>7</option>
+                                </div>
+                                <div th:if="${cart.count != 7}">
+                                    <option value="7">7</option>
+                                </div>
+
+                                <div th:if="${cart.count == 8}">
+                                    <option value="8" selected>8<option>
+                                </div>
+                                <div th:if="${cart.count != 8}">
+                                    <option value="8">8</option>
+                                </div>
+
+                                <div th:if="${cart.count == 9}">
+                                    <option value="9" selected>9</option>
+                                </div>
+                                <div th:if="${cart.count != 9}">
+                                    <option value="9">9</option>
+                                </div>
+
+                                <div th:if="${cart.count == 10}">
+                                    <option value="10" selected>10</option>
+                                </div>
+                                <div th:if="${cart.count != 10}">
+                                    <option value="10">10</option>
+                                </div>
+
+                            </select>
+                            </td>
+                            <td><span class="originalPrice" th:text="${cart.price}"></span></td>
+                            <td><span class="totalPriceResult" th:text="${cart.price * cart.count}"></span> </td>
+                        </tr>
+
+                        <!-- <script>
+                                //아이디(1개)일때
+
+                            function changeCount() {
+                                var x = document.getElementById("priceCount").value * parseInt(originalPrice.innerText);
+                                document.getElementById("totalPriceResult").innerText = x;
+                                        document.getElementsByClassName
+                            }
+
+                        </script> -->
+
+                    </table>
+                </div>
+
+            </form>
+
+
+            </tbody>
+
+
+
+        </div>
+
+
+        <!-- 메인페이지로 가는 버튼 -->
+        <button class="btn btn-light" style="display: flex; margin-bottom: 15px;">
+            <a>쇼핑 계속 하기</a></button>
+
+
+        <!-- 배송금액 창 -->
+        <div class="totalPrice">
+            <p>총 판매가 <br><span id="totalPriceId">0</span><span>원</span></p>
+            <!--            <span><img src="#"></span>-->
+            <p>배송비 <br><span>0</span><span>원</span></p>
+        </div>
+
+
+
+        <!-- 주문, 삭제, 위시리스트 버튼 -->
+        <div class="chooseButton">
+            <!-- 선택삭제  -->
+            <!-- Button trigger modal -->
+            <button type="submit" class="btn btn-outline-secondary" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">
+                상품 선택 삭제
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">삭제하시겠습니까?</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>상품의 이름이지 않을까?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">yes</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 선택삭제 -->
+
+            <button class="btn btn-outline-danger" type="submit">선택상품 찜</button>
+            <button class="btn btn-danger" type="submit"  id="orderButton">선택상품 주문</button>
+
+        </div>
+
+
+
+
+        <!-- 공간띄울 목적으로 넣은 의미없는 div -->
+        <div style="height: 200px; ">
+
+            <p>공백이 없어 넣은 높이 200px</p>
+        </div>
+
+    </main>
+
+</div>
+
+
+
+<!-- 정해지지 않은 푸터 -->
+<footer>
+    <div>뭐 넣을지 모름
+        <p>
+            to do...
+        </p>
+        카테고리 정렬, 체크박스 선택 ,주문 링크,
+    </div>
+</footer>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+<script src="/js/cart.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="/js/address.js"></script>
+<script src="/js/payment.js"></script>
+</body>
+
+</html>

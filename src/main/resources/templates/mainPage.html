@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <script src="backupScript.js"></script>
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+  />
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  
+  <link rel="stylesheet" href="/css/main.css">
+
+    <title>Document</title>
+
+</head>
+
+<body>
+
+    <header class="grid-container-header">
+        <div class="top_util">
+            <strong>이용자 닉네임</strong>
+            <span> | </span>
+            <a href="#">로그아웃</a>
+
+        </div>
+        <div class="header_inner">
+            <img src="https://static.oliveyoung.co.kr/pc-static-root/image/comm/h1_logo.png" alt="올리브영 로고">
+
+            <div class="search">
+                <input type="text" placeholder="검색어 입력">
+                <img src="https://bullang.com/morenvyimg/top_search.svg" alt="Search Icon">
+            </div>
+
+            <div>
+                <img src="https://pics.gmarket.co.kr/pc/single/kr/common/image__header-mypage.svg" alt="마이페이지 아이콘">
+
+                <div class="cart1">
+                    <img src="https://pics.gmarket.co.kr/pc/single/kr/common/image__header-cart.svg" alt="장바구니">
+                </div>
+            </div>
+        </div>
+
+
+        <!-- 카테고리 -->
+        <div class="top_cartegory">
+
+            <ul class="nav nav-pills">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                        aria-expanded="false">카테고리</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Separated link</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">브랜드1</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">브랜드2</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">브랜드3</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">브랜드4</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">브랜드5</a>
+                </li>
+                <!-- <li class="nav-item">
+                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                </li> -->
+            </ul>
+
+
+        </div>
+
+    </header>
+
+    <div class="swiper">
+        <div class="swiper-wrapper">   
+          <div class="swiper-slide">
+            <img src="img/slideImg1.jpg">
+          </div>
+          <div class="swiper-slide">
+            <img src="img/slideImg2.jpg">
+          </div>
+          <div class="swiper-slide">
+            <img src="img/slideImg3.jpg">
+          </div> 
+          <div class="swiper-slide">
+            <img src="img/slideImg4.jpg">
+          </div> 
+        </div>
+        <div class="swiper-pagination"></div>     
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      
+      </div>
+
+      <main class="main-container">
+        <div class="container">
+            <section class="products">
+             
+                <div class="product-list">
+                      
+                </div>
+            </section>
+        </div>
+
+        <aside class="sidebar">
+            <div class="container">
+                <h2>사이드바</h2>
+                <ul>
+                    <li>사이드바 메뉴 1</li>
+                    <li>사이드바 메뉴 2</li>
+                    <li>사이드바 메뉴 3</li>
+                </ul>
+            </div>
+
+            <div class="chat-bot">
+                <img src="img/chatBotImg.png">
+            </div>
+        </aside>
+
+
+    </main>
+
+    <!-- 정해지지 않은 푸터 -->
+    <footer>
+        <div>뭐 넣을지 모름
+            <p>
+                to do...
+            </p>
+            카테고리 정렬, 체크박스 선택 ,주문 링크,
+        </div>
+    </footer>
+
+
+    
+
+<!---  스크립트 -->    
+ <script>
+    document.addEventListener('DOMContentLoaded', function () {
+  const productContainer = document.querySelector('.product-list');
+
+  // 상품 목록 
+  const products = [
+      { name: '상품1', price: '1원', image: '' },
+      { name: '상품2', price: '2원', image: 'product2.jpg' },
+      { name: '상품3', price: '3원', image: 'product3.jpg' },
+      { name: '상품4', price: '4원', image: 'product4.jpg' },
+      { name: '상품5', price: '5원', image: 'product5.jpg' },
+      { name: '상품6', price: '6원', image: 'product6.jpg' },
+      { name: '상품7', price: '7원', image: 'product7.jpg' },
+      { name: '상품8', price: '8원', image: 'product8.jpg' },
+      { name: '상품9', price: '9원', image: 'product9.jpg' },
+      { name: '상품10', price: '10원', image: 'product10.jpg' },
+      { name: '상품1', price: '1원', image: '' },
+      { name: '상품2', price: '2원', image: 'product2.jpg' },
+
+  ];
+
+  products.forEach(product => {
+      const productItem = document.createElement('div');
+      productItem.classList.add('product');
+
+      productItem.innerHTML = `
+          <img src="images/${product.image}" alt="${product.name}">
+          <h3>${product.name}</h3>
+          <p>${product.price}</p>
+          <button>장바구니 담기</button>
+      `;
+
+      productContainer.appendChild(productItem);
+  });
+})
+
+
+var myCarousel = document.querySelector('#myCarousel')
+var carousel = new bootstrap.Carousel(myCarousel, {
+interval: 2000,
+wrap: false
+})
+</script>
+
+
+<script>
+const swiper = new Swiper('.swiper', {
+  loop: true,
+  slidesPerView: 1,
+  autoplay: {
+    delay: 2000,
+    disableOnInteraction: false,
+  },
+  pagination: {
+    el: '.swiper-pagination',
+  },
+  
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+});
+ </script>
+
+
+
+
+
+    <script type="module">
+    import swiper from 'https://cdn.jsdelivr.net/npm/swiper@11.1.1/+esm'
+    </script>
+        
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button type="button" id="consoleLog-btn">consoleLog</button>
+<form action="/test" method="post">
+    <button type="submit">redirect</button>
+</form>
+
+<input type="file" id="fileInput">
+<div id="fileContents"></div>
+
+<script>
+    document.getElementById('fileInput').addEventListener('change', function() {
+        var file = this.files[0]; // 선택된 파일
+        var reader = new FileReader(); // 파일을 읽을 FileReader 객체 생성
+
+        reader.onload = function(event) {
+            var contents = event.target.result; // 파일 내용
+            document.getElementById('fileContents').textContent = contents; // 파일 내용을 화면에 출력
+        };
+
+        // 파일 읽기 작업 시작
+        reader.readAsText(file);
+    });
+</script>
+
+</body>
+</html>

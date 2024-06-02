@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Document</title>
+    <style>
+        * {
+            font-size: 13px;
+        }
+
+        body {}
+
+        .grid-container {
+            display: grid;
+            grid-template-areas:
+                /* "header header" */
+                "sidebar content"
+                "footer footer";
+            grid-template-columns: 1fr 3fr;
+            width: 1020px;
+            margin: auto;
+            margin-top: 20px;
+        }
+
+        .grid-container-header {
+            display: grid;
+            /* grid-template-areas:
+            "top_util"
+            "header_inner"
+            ; */
+
+            /* grid-template-columns: 1fr 3fr; */
+        }
+
+        .top_util {
+            width: 900px;
+            height: 30px;
+            text-align: right;
+            margin: auto;
+            /* grid-area: top_util; */
+        }
+
+        .top_util a {
+            margin: 0px 0px 0px 4px;
+        }
+
+        .header_inner {
+            /* grid-area: header_inner; */
+            margin: auto;
+            height: 90px;
+            display: flex;
+
+            /* grid-template-columns: auto 1fr; 로고와 검색창 열 생성 */
+        }
+
+        .header_inner img {
+            width: 246px;
+            height: 40px;
+            margin-top: 15px;
+
+
+
+        }
+
+        header {
+            height: 160px;
+            grid-area: header;
+            border-bottom: 2px solid black;
+
+        }
+
+        .top_cartegory {
+            height: 43px;
+            border-top: 1px solid #9999;
+            text-align: center;
+
+        }
+
+        .top_cartegory a {
+            font-size: 15px;
+            margin: 0px;
+        }
+
+        .top_cartegory ul {
+            /* 카테고리 위치 더 나은 방법이 있나 */
+            margin-left: 23%;
+        }
+
+
+        .grid-container-aside {
+            /* display: grid; */
+            width: 130px;
+            float: left;
+            /* 왼쪽 위치 */
+            padding: 20px 0px 0px 5px;
+
+
+        }
+
+        .grid-container-main {
+            /* display: grid; */
+            /* width: 100%; */
+            float: right;
+            /* 추가: 오른쪽에 위치 */
+            padding: 20px 0px;
+
+        }
+
+
+        .category {
+            text-align: left;
+
+        }
+
+
+
+        main {
+            text-align: center;
+            grid-area: content;
+            padding: 20px;
+        }
+
+        aside {
+            grid-area: sidebar;
+            margin: 0px;
+
+        }
+
+        footer {
+            height: 150px;
+            grid-area: footer;
+            background-color: #9999;
+        }
+
+        ul {
+            line-height: 30px;
+            list-style: none;
+            padding: 0;
+        }
+
+        .cart1 {
+            margin: -55px 0px 0px 90px;
+        }
+
+        .search {
+            position: relative;
+            width: 300px;
+            margin-bottom: 20px;
+            margin: 0px 0px 0px 60px;
+            padding: 15px 30px 0px 20px;
+        }
+
+        .search input {
+            width: 300px;
+            border: 2px solid #bbb;
+            border-radius: 30px;
+            padding: 10px 12px;
+            font-size: 14px;
+        }
+
+        .search img {
+            position: absolute;
+            width: 30px;
+            top: 2px;
+            right: 0px;
+            margin: 15px 0px 0px 0px;
+        }
+
+        a {
+            text-decoration-line: none;
+        }
+
+        a:link {
+            color: black;
+
+        }
+
+        a:visited {
+            color: black;
+        }
+
+        a:hover {}
+
+        a:active {
+            color: green
+        }
+
+
+
+        .main_table {}
+
+
+        /* 테이블안 내용 가운데 정렬 */
+        td {
+            vertical-align: middle;
+        }
+
+
+        /* 총 금액 클래스 */
+        .totalPrice {
+            height: 100px;
+
+            border-top: solid 3px rgb(128, 228, 128);
+            border-bottom: solid 2px #9999;
+        }
+
+        .totalPrice p {
+            margin-top: 30px;
+            display: inline-block;
+            width: 220px;
+            height: 100px;
+        }
+
+        /* .totalPrice span{
+            display: block;
+        } */
+        .totalPrice span {
+            display: inline-block;
+        }
+
+        .content-container {}
+
+
+
+        .grid-container-main li {
+            /* background-color: #e6e3e399; */
+            text-align: left;
+        }
+
+        .calendar {
+            height: 80px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            background-color: #efecec99;
+
+
+
+
+        }
+    </style>
+</head>
+
+<body>
+
+
+<header class="grid-container-header">
+    <div class="top_util">
+        <strong>이용자 닉네임</strong>
+        <span> | </span>
+        <a href="#">로그아웃</a>
+
+    </div>
+    <div class="header_inner">
+        <img src="https://static.oliveyoung.co.kr/pc-static-root/image/comm/h1_logo.png" alt="올리브영 로고">
+
+        <div class="search">
+            <input type="text" placeholder="검색어 입력">
+            <img src="https://bullang.com/morenvyimg/top_search.svg" alt="Search Icon">
+        </div>
+
+        <div>
+            <img src="https://pics.gmarket.co.kr/pc/single/kr/common/image__header-mypage.svg" alt="마이페이지 아이콘">
+
+            <div class="cart1">
+                <img src="https://pics.gmarket.co.kr/pc/single/kr/common/image__header-cart.svg" alt="장바구니">
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 카테고리 -->
+    <div class="top_cartegory">
+
+        <ul class="nav nav-pills">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                   aria-expanded="false">카테고리</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#">Separated link</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <!-- <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            </li> -->
+        </ul>
+
+
+    </div>
+
+</header>
+
+
+<!-- aside 사이드바 -->
+<div class="grid-container">
+    <aside class="grid-container-aside">
+        <div class="categoryta">
+
+            <ul>
+                <li style="margin-bottom: 15px;"><a href="#" style="font-size: 25px;">마이페이지</a></li>
+                <li style="font-size: 17px; font-weight: bolder;">마이쇼핑</li>
+
+                <li><a href="#">주문/배송조회</a></li>
+                <li><a href="#">취소/반품/교환 내역</a></li>
+                <hr>
+                <li><a href="#">장바구니</a></li>
+                <li><a href="#">위시리스트</a></li>
+                <li><a href="#">히스토리</a></li>
+                <hr>
+                <li style="font-size: 18px; font-weight: bolder;">마이활동</li>
+                <li><a href="#">리뷰</a></li>
+                <li><a href="#">QnA</a></li>
+
+            </ul>
+        </div>
+    </aside>
+
+
+
+    <!-- 메인 -->
+    <main class="grid-container-main">
+
+        <div>
+
+            <h3 style="  text-align: left; ">취소/반품/교환내역</h3>
+            <hr>
+
+            <!--날짜지정 -->
+            <form>
+
+                <div class="calendar">
+                    <span>구매기간</span>
+                    <input type="date" style="margin:30px 50px 0px 0px;" id="firstDate">
+
+                    <span>~</span>
+                    <input type="date" style="margin-left: 50px;" id="lastDate">
+                    <button type="submit">조회</button>
+                </div>
+            </form>
+
+
+
+            <div class="main_table">
+                <table class="table" style="margin-top: 20px;">
+                    <thead class="table-light">
+                    <tr>
+                        <th style="text-align: center;">주문번호</th>
+                        <th>상품</th>
+                        <th>수량</th>
+                        <th>구매가</th>
+
+
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr>
+                        <td>0054560</td>
+
+                        <td style="min-width: 430px; max-width: 430px; height: 100%;  ">
+                            <img src="young.png" width="85px" height="85px">
+                            <span>메이크프렘</span>
+                            <p>[2주모공세럼]메이크프렘 엔드포어 베지놀 세럼50ml</p>
+                        </td>
+                        <!-- <td><select name="count" onchange="alert('수량 변경이 완료되었습니다')"> -->
+                        <td>5</td>
+
+                        <td><span class="totalPriceResult">5000</span> </td>
+                    </tr>
+
+
+                    <!-- <script>
+                            //아이디(1개)일때
+
+                        function changeCount() {
+                            var x = document.getElementById("priceCount").value * parseInt(originalPrice.innerText);
+                            document.getElementById("totalPriceResult").innerText = x;
+                                    document.getElementsByClassName
+                        }
+
+                    </script> -->
+
+                </table>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+            <!-- 공간띄울 목적으로 넣은 의미없는 div -->
+        </div>
+        <div style="height: 600px; ">
+
+            <p>공백이 없어 넣은 높이 600px</p>
+        </div>
+
+    </main>
+
+
+    <!-- 정해지지 않은 푸터 -->
+    <footer>
+        <div>뭐 넣을지 모름
+            <p>
+                to do...
+            </p>
+            카테고리 정렬, 체크박스 선택 ,주문 링크,
+        </div>
+    </footer>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+<script src="MyPageQnA.js"></script>
+</body>
+
+</html>

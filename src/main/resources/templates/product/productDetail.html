@@ -1,0 +1,573 @@
+<!--재현-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <style>
+
+        p{
+            margin-top: 16px;
+        }
+
+        hr{
+            margin: 0px;
+        }
+
+        .header{
+            padding-top: 20px;
+        }
+
+        .brands{
+            padding-top: 20px;
+            height: 60px;
+            width: 30px;
+        }
+
+        .move-btn:hover{
+            cursor: pointer;
+        }
+
+        .left{
+            position: fixed;
+            left: 10px;
+            top: 50%;
+        }
+
+        .right{
+            position: fixed;
+            right: 10px;
+            top: 50%;
+        }
+
+        .top{
+            position: fixed;
+            right: 10px;
+            bottom: 100px;
+        }
+
+        .chatbot{
+            position: fixed;
+            right: 10px;
+            bottom: 10px;
+        }
+
+        .main{
+            padding-top: 50px;
+        }
+
+        img{
+          height: 100%;
+          width: 100%;
+        }
+
+        .cursor{
+            cursor: pointer;
+        }
+
+        #wish-btn{
+            width: 30px;
+            height: 30px;
+        }
+
+        .color-gainsboro{
+            color: gainsboro;
+        }
+
+        .cursor{
+            cursor:pointer;
+        }
+
+        .d-relative{
+            position: relative;
+        }
+
+        .d-sticky-bottom{
+            position: sticky;
+            bottom: 0px;
+            background: white;
+        }
+
+
+    </style>
+    <link rel="stylesheet" href="/css/cart.css">
+</head>
+<body>
+
+<header class="grid-container-header">
+    <div class="top_util">
+        <strong th:if="${principal != null}" th:text="${userName}"></strong>
+        <span th:if="${principal != null}"> | </span>
+        <strong class="cursor" id="logout-btn" th:if="${principal != null}">로그아웃</strong>
+        <strong class="cursor" id="login-btn" th:if="${principal == null}" onclick="location.href='/login'">로그인</strong>
+
+    </div>
+    <div class="header_inner">
+        <img src="https://static.oliveyoung.co.kr/pc-static-root/image/comm/h1_logo.png" alt="올리브영 로고">
+
+        <div class="search">
+            <input type="text" placeholder="검색어 입력">
+            <img src="https://bullang.com/morenvyimg/top_search.svg" alt="Search Icon">
+        </div>
+
+        <div>
+            <img src="https://pics.gmarket.co.kr/pc/single/kr/common/image__header-mypage.svg" alt="마이페이지 아이콘">
+
+            <div class="cart1">
+                <img src="https://pics.gmarket.co.kr/pc/single/kr/common/image__header-cart.svg" alt="장바구니">
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 카테고리 -->
+    <div class="top_cartegory">
+
+        <ul class="nav nav-pills">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                   aria-expanded="false">카테고리</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#">Separated link</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <!-- <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            </li> -->
+        </ul>
+
+
+    </div>
+
+</header>
+
+<h1 class="move-btn left" id="prevProductGroup-btn" th:if="${PGL != null}">-</h1>
+<h1 class="move-btn right" id="nextProductGroup-btn" th:if="${PGL != null}">+</h1>
+
+<div class="container header" id="headid">
+    <div class="container" style="min-width:1200px">
+        <div class="row">
+            <div class="col-5" style="height: 500px;">
+                <img th:src="${productGroup.repImgSrc}" alt="상품 대표이미지">
+            </div>
+            <div class="col-7">
+                <div class="container d-flex flex-column" style="min-height:500px">
+                    <div class="row">
+                        <div class="col-10" style="font-size:25px;" th:text="${productGroup.name}"></div>
+                        <div class="col-2">
+                            <img th:if="${principal != null && isWish == false}" src="/img/wish1.png" alt="찜img" class="cursor mt-2" id="wish-btn">
+                            <img th:if="${principal != null && isWish == true}" src="/img/wish2.png" alt="찜img" class="cursor mt-2" id="wish-btn">
+                            <input type="hidden" id="wishStatus" th:value="${isWish}">
+                        </div>
+                    </div>
+                    <div class="row" style="height: 40px">
+                        <div class="col" style="font-size: 25px; color: red;" th:text="${productGroup.groupPrice} + '원~'"></div>
+                    </div>
+                    <div class="row" style="height: 25px; margin-top: 20px;">
+                        <div class="col-md-auto" style="font-weight: bolder;">배송정보</div>
+                        <div class="col" style="padding-left: 0px;">
+                            <div>
+                                <img src="#" alt="느낌표 이미지" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            </div>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>배송정보 1</p>
+                                            <p>배송정보 2</p>
+                                            <p>배송정보 3</p>
+                                            <p>배송정보 4</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 10px; margin-bottom: 10px;">
+                        <div>일반배송 | 2500원(00,000원 이상 무료 배송)</div>
+                        <div>업체배송 | 평균 3일 이내 배송</div>
+                        <hr style="margin-top: 10px;">
+                    </div>
+                    <div class="row">
+                        <div class="dropdown text-center">
+                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="margin-left:10px; width: 620px">
+                                상품 선택
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="width: 620px">
+                                <li th:each="product : ${products}" class="dropdown-item" >
+                                    <input type="hidden" class="productNames" th:value="${product.name}">
+                                    <input type="hidden" class="productIds" th:value="${product.productId}">
+                                    <input type="hidden" class="productPrices" th:value="${product.price}">
+
+                                    <div class="container item-btns p-0" th:if="${product.quantity > 0}">
+                                        <input type="hidden" class="selectableIds" th:value="${product.productId}">
+                                        <input type="hidden" class="selectableProductNames" th:value="${product.name}">
+                                        <input type="hidden" class="selectableProductPrices" th:value="${product.price}">
+
+                                        <div class="row">
+                                            <img th:src="${product.imgSrc}" alt="상품 이미지" class="col-3 p-0" style="height: 60px; width:60px; background-color:gray;">
+                                            <div class="col small align-items-center d-flex" th:text="${product.name}"></div>
+                                            <div class="col-3 d-flex align-items-center justify-content-end" th:text="${product.price} + '원'" th:value="${product.price}"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="container p-0" th:if="${product.quantity <= 0}">
+                                        <div class="row color-gainsboro">
+                                            <img th:src="${product.imgSrc}" alt="상품 이미지" class="col-3 p-0" style="height: 60px; width:60px; background-color:gray;">
+
+                                            <div class="col small align-items-center d-flex" th:text="${product.name}"></div>
+                                            <div class="col-3 d-flex align-items-center justify-content-end" th:text="${product.price} + '원'" th:value="${product.price}"></div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="container" id="productSpace">
+
+                    </div>
+
+                    <div class="row mt-auto" style="margin-left: 10px; margin-top: 30px; font-size: 25px; color: red;">
+                        <div class="col">
+                            <p>상품금액합계</p>
+                        </div>
+                        <div class="col" id="#">
+                            <input type="hidden" id="totalPrice" value=0>
+                            <p style="text-align: right;" id="totalPriceText">0원</p>
+                        </div>
+                        <hr>
+                    </div>
+
+
+
+                    <div class="row text-center ms-4">
+                        <div class="col row mt-4 ps-4">
+                            <div class="col"><button type="button" class="btn btn-outline-primary w-100" id="order-btn">바로구매</button></div>
+                            <div class="col" th:if="${principal != null}"><button type="button" class="btn btn-outline-primary w-100 " id="cart-btn">장바구니</button></div>
+                            <div class="col" th:if="${principal != null}"><button type="button" class="btn btn-outline-primary w-100" id="present-btn" >선물하기</button></div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="cartBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">장바구니 추가 완료</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body" id="cartNote">
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">쇼핑 계속하기</button>
+                                    <button type="button" class="btn btn-primary" onclick="location.href='/cart'">장바구니 바로가기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="container text-center main">
+        <nav>
+            <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
+                <button class="nav-link active col-12 col-md-auto" id="nav-product-tab" data-bs-toggle="tab" data-bs-target="#nav-product" type="button" role="tab" aria-controls="nav-home" aria-selected="true">상품 설명</button>
+                <button class="nav-link col-12 col-md-auto" id="nav-productInfo-tab" data-bs-toggle="tab" data-bs-target="#nav-productInfo" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">구매 정보</button>
+                <button class="nav-link col-12 col-md-auto" id="nav-review-tab" data-bs-toggle="tab" data-bs-target="#nav-review" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">리뷰</button>
+                <button class="nav-link col-12 col-md-auto" id="nav-QnA-tab" data-bs-toggle="tab" data-bs-target="#nav-QnA" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">QnA</button>
+            </div>
+        </nav>
+    </div>
+
+    <div class="container text-center" style="margin-bottom: 50px;">
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active mt-4" id="nav-product" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div th:each="productInfoImg : ${productInfoImgs}">
+                    <img th:src="${productInfoImg}">
+                </div>
+            </div>
+            <div class="tab-pane fade mb-5" id="nav-productInfo" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <h3 class="mt-5">상품정보 제공 공시</h3>
+                <div class="container">
+                    <div class="row">
+                        <hr>
+                        <hr>
+                        <div class="col-2" style="background-color: gainsboro;"><p style="text-align: left; font-weight: bolder;">내용물의 용량 또는 중량</p></div>
+                        <div class="col-10"><p style="text-align: left; word-wrap: break-word;" th:text="${productGroup.weight}"></p></div>
+                        <hr>
+                    </div>
+                    <div class="row">
+                        <div class="col-2" style="background-color: gainsboro;"><p style="text-align: left; font-weight: bolder;">제품 주요 사양</p></div>
+                        <div class="col-10"><p style="text-align: left; word-wrap: break-word;" th:text="${productGroup.summary}"></p></div>
+                        <hr>
+                    </div>
+                    <div class="row">
+                        <div class="col-2" style="background-color: gainsboro;"><p style="text-align: left; font-weight: bolder;">사용기한(또는 개봉 후 사용기간)</p></div>
+                        <div class="col-10"><p style="text-align: left; word-wrap: break-word;" th:text="${productGroup.period}"></p></div>
+                        <hr>
+                    </div>
+                    <div class="row">
+                        <div class="col-2" style="background-color: gainsboro;"><p style="text-align: left; font-weight: bolder;">사용방법</p></div>
+                        <div class="col-10"><p style="text-align: left; word-wrap: break-word;" th:text="${productGroup.manual}"></p></div>
+                        <hr>
+                    </div>
+                    <div class="row">
+                        <div class="col-2" style="background-color: gainsboro;"><p style="text-align: left; font-weight: bolder;">화장품제조업자,화장품책임판매업자 및 맞춤형화장품판매업자</p></div>
+                        <div class="col-10"><p style="text-align: left; word-wrap: break-word;" th:text="${productGroup.manufacturer}"></p></div>
+                        <hr>
+                    </div>
+                    <div class="row">
+                        <div class="col-2" style="background-color: gainsboro;"><p style="text-align: left; font-weight: bolder;">제조국</p></div>
+                        <div class="col-10"><p style="text-align: left; word-wrap: break-word;" th:text="${productGroup.country}"></p></div>
+                        <hr>
+                    </div>
+                    <div class="row">
+                        <div class="col-2" style="background-color: gainsboro;"><p style="text-align: left; font-weight: bolder;">화장품법에 따라 기재해야 하는 모든 성분</p></div>
+                        <div class="col-10"><p style="text-align: left; word-wrap: break-word;" th:text="${productGroup.details}"></p></div>
+
+                        <hr>
+                    </div>
+                    <div class="row">
+                        <div class="col-2" style="background-color: gainsboro;"><p style="text-align: left; font-weight: bolder;">기능성 화장품 식품의약품안전처 심사필 여부</p></div>
+                        <div class="col-10"><p style="text-align: left; word-wrap: break-word;">화장품법에 따른 기능성 화장품 심사(또는 보고)를 필함</p></div>
+                        <hr>
+                    </div>
+                    <div class="row">
+                        <div class="col-2" style="background-color: gainsboro;"><p style="text-align: left; font-weight: bolder;">품질보증기준</p></div>
+                        <div class="col-10"><p style="text-align: left; word-wrap: break-word;" th:text="${productGroup.assurance}"></p></div>
+                        <hr>
+                    </div>
+                    <div class="row">
+                        <div class="col-2" style="background-color: gainsboro;"><p style="text-align: left; font-weight: bolder;">소비자상담 전화번호</p></div>
+                        <div class="col-10"><p style="text-align: left; word-wrap: break-word;">상담번호 --- ----- ----</p></div>
+                        <hr>
+                    </div>
+                    <div class="row">
+                        <div class="col-2" style="background-color: gainsboro;"><p style="text-align: left; font-weight: bolder;">사용할 때의 주의사항</p></div>
+                        <div class="col-10"><p style="text-align: left; word-wrap: break-word;" th:text="${productGroup.precautions}"></p></div>
+                        <hr>
+                        <hr>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 30px;">배송 안내</h3>
+                <div class="container">
+                    <div class="row">
+                        <hr>
+                        <hr>
+                        <div class="col-2" style="background-color: gainsboro;"><p style="text-align: left; font-weight: bolder;">배송비/배송가능일</p></div>
+                        <div class="col-10" style="text-align: left; word-wrap: break-word; margin-top: 16px; margin-bottom: 16px;">
+                            <b>[일반 배송]</b><br>
+
+                            <b>배송지역</b> : 전국<br>
+
+                            <b>배송비</b> : <p style="color:red; display:inline-block">2,500원</p><br>
+
+                            배송 상품의 총 결제금액이 <p style="color: red; display:inline-block">20,000원</p> 이상일 경우 무료배송 됩니다.<br>
+
+                            도서, 산간, 오지 일부 지역은 배송비가 추가될 수 있습니다.<br>
+
+                            배송가능일 : <p style="color:red; display:inline-block">3</p>일<br>
+
+                            배송가능일이란 본 상품을 주문하신 고객님들께 상품 배송이 가능한 기간을 의미합니다. 단, 연휴 및 공휴일은 기간 계산시 제외하며 현금 주문일 경우 입금일 기준 입니다.<br>
+
+                            예약 상품의 경우 예약된 날짜에 출고되며, 상품의 입고가 빠르게 진행된 경우 예약일 보다 일찍 배송될 수 있습니다.</div>
+                        <hr>
+                        <hr>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 30px;">교환/반품/환불 안내</h3>
+                <div class="container">
+                    <div class="row">
+                        <hr>
+                        <hr>
+                        <div class="col-2" style="background-color: gainsboro;"><p style="text-align: left; font-weight: bolder;">교환/반품 신청 방법</p></div>
+                        <div class="col-10" style="text-align: left; word-wrap: break-word; margin-top: 16px; margin-bottom: 16px;">
+                            마이페이지 내 주문내역에서 신청가능하며,<br>
+                            반품 신청의 경우 택배회수로 반품 절차가 진행됩니다.
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="row">
+                        <div class="col-2" style="background-color: gainsboro;"><p style="text-align: left; font-weight: bolder;">교환/반품 신청 기간</p></div>
+                        <div class="col-10" style="text-align: left; word-wrap: break-word; margin-top: 16px; margin-bottom: 16px;">
+                            교환, 반품 신청은 배송이 완료된 후 15일 이내 가능합니다.<br>
+                            고객님이 배송 받으신 상품의 내용이 표시∙광고의 내용과 다르거나 계약내용과 다르게 이행된 경우에는 배송 받으신 날로부터 3개월 이내, 혹은 그 사실을 알 수 있었던 날로 부터 30일 이내에 가능합니다.
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="row">
+                        <div class="col-2" style="background-color: gainsboro;"><p style="text-align: left; font-weight: bolder;">교환/반품/회수 비용</p></div>
+                        <div class="col-10" style="text-align: left; word-wrap: break-word; margin-top: 16px; margin-bottom: 16px;">
+                            고객님의 사유에 의한 교환 및 반품은 회수 및 배송에 필요한 비용을 부담해주셔야 합니다.<br>
+                            기본 비용은 <p style="color: red; display: inline-block; margin:0px;">교환 5,000원(회수비+배송비), 반품 2,500원(회수비)</p>입니다.<br>
+                            제주도 및 도서산간 지방에는 추가 운임이 발생합니다.<br>
+                            당사의 사유(상품의 하자, 배송의 오류 등)로 인한 경우 교환 및 반품에 필요한 비용은 당사에서 부담합니다.
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="row">
+                        <div class="col-2" style="background-color: gainsboro;"><p style="text-align: left; font-weight: bolder;">교환/반품 불가안내</p></div>
+                        <div class="col-10" style="text-align: left; word-wrap: break-word; margin-top: 16px; margin-bottom: 16px;">
+                            고객님의 사유에 의한 교환 및 반품이 불가한 경우<br>
+                            1. 배송이 완료된 후 15일이 경과한 경우<br>
+                            2. 포장 훼손 및 사용 또는 일부 소비, 구성품 누락 및 상품의 결함 발생으로 인해 상품의 가치가 훼손된 경우<br>
+                            <br>
+                            당사의 사유에 의한 교환 및 반품이 불가한 경우<br>
+                            1. 배송 받으신 날로부터 3개월, 혹은 그 사실을 알 수 있었던 날로 부터 30일이 경과한 경우<br>
+                            2. 당사의 귀책(상품의 불량, 생산 및 제조 및 배송 간의 파손 등)으로 인한 현상이 아닌 해당 상품의 고유한 특성, 혹은 상품 수령 후 고객님의 과실로 인한 문제임이 규명된 경우
+                        </div>
+                        <hr>
+                        <hr>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="nav-review" role="tabpanel" aria-labelledby="nav-contact-tab">
+                <h3 style="margin-top: 30px;">리뷰</h3>
+                <div class="container border" th:each="review : ${reviews}">
+                    <div class="row mb-3 border-bottom">
+                        <div class="col-3" th:text="${review.username}"></div>
+                        <div class="col-9" th:text="${review.content}"></div>
+                    </div>
+                    <div class="row">
+                        <div th:each="img : ${review.imgs}" class="col-3">
+                            <img th:src="${img}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="nav-QnA" role="tabpanel" aria-labelledby="nav-contact-tab">
+                <h3 style="margin-top: 30px;">QnA</h3>
+                <div class="row">
+
+                    <a class="btn btn-outline-secondary col-2 mb-5 ms-auto" data-bs-toggle="modal" href="#exampleModalToggle" role="button">작성</a>
+                    <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalToggleLabel">QnA</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <textarea id="question"></textarea>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" id="question-btn" data-bs-dismiss="modal" aria-label="Close">등록</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="accordion" id="accordionExample">
+                    <div class="accordion-item" th:each="QnA : ${QnAs}">
+                        <h2 class="accordion-header" th:id="'questionId' + ${QnA.qnAId}">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" th:data-bs-target="'#collapse' + ${QnA.qnAId}" aria-expanded="true" th:aria-controls="'collapse' + ${QnA.qnAId}" th:text="${QnA.question}">
+                                Accordion Item #1
+                            </button>
+                        </h2>
+                        <div th:id="'collapse' + ${QnA.qnAId}" class="accordion-collapse collapse" th:aria-labelledby="'questionId' + ${QnA.qnAId}" data-bs-parent="#accordionExample">
+                            <div class="accordion-body" th:if="${QnA.answer != null}" th:text="${QnA.answer}"></div>
+                            <div class="accordion-body" th:if="${QnA.answer == null}">
+                                답변을 기다리는 중...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="move-btn top" style="height: 100px; width: 100px;"><img src="#" alt="최상단 이동 이미지" id="move-top-btn"></div>
+<div class="move-btn chatbot" style="height: 100px; width: 100px;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasBottom" onclick="chatFocus()"><img src="#" alt="챗봇이미지"></div>
+
+<div class="offcanvas offcanvas-bottom" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Chat Bot</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body small pb-0">
+        <div>
+            챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간
+            챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간
+            챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간
+            챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간
+            챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간
+            챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간
+            챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간
+            챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간
+            챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간
+            챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간
+            챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간
+            챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간
+            챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간
+            챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간
+            챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간
+            챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간
+            봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간
+            챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간
+            챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간
+            챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간
+            챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간
+            챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간
+            챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간
+            챗봇 이용을 구현한 공간챗봇 이용을 구현한 공간챗봇 이용을
+        </div>
+    </div>
+
+    <div class="row d-sticky-bottom mt-1" id="chat-form">
+        <input type="text" class="col form-control mx-4" id="contentField">
+        <button type="button" class="col-auto btn btn-success me-3" id="chat-btn">전송</button>
+    </div>
+
+</div>
+
+<input type="hidden" id="productGroupId" th:value="${productGroup.productGroupId}">
+<div th:each="productGroup : ${PGL}">
+    <input type="hidden" class="PGL" th:value="${productGroup}">
+</div>
+
+<script src="/js/productDetail.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="/js/address.js"></script>
+<script src="/js/payment.js"></script>
+<script src="/js/membership.js"></script>
+<script src="/js/chatbot.js"></script>
+</body>
+</html>

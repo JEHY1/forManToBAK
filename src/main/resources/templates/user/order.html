@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/cart.css">
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="/js/address.js"></script>
+    <title>Document</title>
+    <style>
+        .d-hidden{
+            display: none;
+        }
+
+        .color-red{
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+
+<header class="grid-container-header">
+    <div class="top_util">
+        <strong>이용자 닉네임</strong>
+        <span> | </span>
+        <a href="#">로그아웃</a>
+    </div>
+
+    <div class="header_inner">
+        <img src="https://static.oliveyoung.co.kr/pc-static-root/image/comm/h1_logo.png" alt="올리브영 로고">
+
+        <div class="search">
+            <input type="text" placeholder="검색어 입력">
+            <img src="https://bullang.com/morenvyimg/top_search.svg" alt="Search Icon">
+        </div>
+
+        <div>
+            <img src="https://pics.gmarket.co.kr/pc/single/kr/common/image__header-mypage.svg" alt="마이페이지 아이콘">
+
+            <div class="cart1">
+                <img src="https://pics.gmarket.co.kr/pc/single/kr/common/image__header-cart.svg" alt="장바구니">
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 카테고리 -->
+    <div class="top_cartegory">
+
+        <ul class="nav nav-pills">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                   aria-expanded="false">카테고리</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#">Separated link</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <!-- <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            </li> -->
+        </ul>
+    </div>
+
+</header>
+
+<div class="container">
+    <div class="row mt-5 mb">
+        <div class="col-auto h1">주문/결제</div>
+        <div class="col-auto ms-auto h5 mt-auto">01.장바구니><b style="font-size:19px;">02.주문/결제</b>>03.주문완료</div>
+    </div>
+    <hr style="margin: 0px;">
+    <div class="row">
+        <h3 class="mt-5">배송 정보</h3>
+        <div class="container border-secondary border-top border-bottom border-2">
+            <div class="row">
+                <div class="col-2" style="background-color: gainsboro;"><p style="text-align: left; font-weight: bolder;">배송지</p></div>
+                <div class="col-10 row">
+                    <div class="col-4 py-4">
+                        <input type="text" id="sample6_postcode" placeholder="우편번호" readonly th:value="${addressInfo.postalCode}">
+                        <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+                        <input type="text" id="sample6_address" placeholder="주소" readonly th:value="${addressInfo.roadNameAddress}"><br>
+                        <input type="text" id="sample6_detailAddress" placeholder="상세주소" onchange="addressCheck(this)" th:value="${addressInfo.detailAddress}">
+                        <input type="hidden" id="sample6_extraAddress" placeholder="참고항목" readonly>
+                    </div>
+                    <div class="col d-flex">
+                        <div class="color-red d-hidden align-self-center" id="invalid-postcode">!배송지 정보를 입력하세요</div>
+                    </div>
+
+                </div>
+                <hr class="m-0">
+            </div>
+            <div class="row">
+                <div class="col-2" style="background-color: gainsboro;"><p style="text-align: left; font-weight: bolder;">받는분</p></div>
+                <div class="col-10 row">
+                    <div class="col-4 py-4">
+                        <input type="text" id="receiver" onchange="receiverCheck(this)">
+                    </div>
+                    <div class="col d-flex">
+                        <div class="color-red d-hidden align-self-center" id="invalid-receiver">!수령인 정보를 입력하세요</div>
+                    </div>
+
+                </div>
+                <hr class="m-0">
+            </div>
+            <div class="row">
+                <div class="col-2" style="background-color: gainsboro;"><p style="text-align: left; font-weight: bolder;">연락처</p></div>
+                <div class="col-10 row">
+                    <div class="col-4 py-4">
+                        <input type="text" id="receiverPhone" onchange="receiverPhoneCheck(this)">
+                    </div>
+                    <div class="col d-flex">
+                        <div class="color-red d-hidden align-self-center" id="invalid-receiverPhone">!연락처 정보를 입력하세요</div>
+                    </div>
+
+                </div>
+                <hr class="m-0">
+            </div>
+            <div class="row">
+                <div class="col-2" style="background-color: gainsboro;"><p style="text-align: left; font-weight: bolder;">배송 요청사항</p></div>
+                <div class="col-10 py-4">
+                    <textarea class="w-100"></textarea>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <h3 class="mt-5">배송 정보</h3>
+        <div class="container">
+            <div class="row pt-2 pb-2 border-secondary border-top border-bottom border-2" style="background-color: gainsboro;">
+                <div class="col-8 text-center">상품정보</div>
+                <div class="col text-center">판매가</div>
+                <div class="col text-center">수량</div>
+                <div class="col text-center">구매가</div>
+            </div>
+
+            <div class="row" th:each="product : ${selectedProducts}">
+                <input type="hidden" class="productIds" th:value="${product.productId}">
+<!--                <div class="col-2">이미지</div>-->
+                <div class="col-8 border-end text-center" th:text="${product.name}">상품이름</div>
+                <div class="col text-center border-end" th:text="${product.price}">가격</div>
+                <input type="hidden" class="productCounts" th:value="${product.count}">
+                <div class="col text-center border-end" th:text="${product.count}">수량</div>
+                <div class="col text-center productTotalPrice" th:text="${product.price * product.count}">가격</div>
+                <hr class="m-0">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <h3 class="mt-5">결제 수단</h3>
+        <div class="container">
+
+            <label><input type="checkbox" class="payType" value="option1" onchange="checkBox(this)">신용카드</label>
+            <label><input type="checkbox" class="payType" value="option2" onchange="checkBox(this)">PAYCO</label>
+            <label><input type="checkbox" class="payType" value="option3" onchange="checkBox(this)">카카오페이</label>
+            <label><input type="checkbox" class="payType" value="option4" onchange="checkBox(this)">네이버페이</label>
+            <label><input type="checkbox" class="payType" value="option5" onchange="checkBox(this)">휴대폰 결제</label>
+            <label><input type="checkbox" class="payType" value="option6" onchange="checkBox(this)">계좌이체</label>
+            <div class="color-red d-hidden mt-4" id="invalid-paymentType">!결제수단을 선택하세요</div>
+            <input type="hidden" id="paymentType" onchange="paymentTypeCheck(this)">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="mt-5 h2">최종 결제 금액</div>
+        <div class="row">
+            <div class="col h4" id="totalPrice" th:text="${totalPrice}"></div>
+            <div class="col h4">+</div>
+
+            <div class="row col">
+                <div class="h4" id="deliveryFee" th:if="${totalPrice > 20000}">0</div>
+                <div class="h4" id="deliveryFee" th:if="${totalPrice <= 20000}">2500</div>
+                <p>배송비</p>
+            </div>
+            <div class="col h4">=</div>
+            <div class="col h4" id="paymentPrice" th:if="${totalPrice > 20000}" th:text="${totalPrice}"></div>
+            <div class="col h4" id="paymentPrice" th:if="${totalPrice <= 20000}" th:text="${totalPrice + 2500}"></div>
+        </div>
+
+        <button class="btn btn-success p-3" type="button" onclick="payment()">구매하기</button>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade show" id="scarcityNote" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="scarcityNoteLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="scarcityNoteLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="scarcity-content">
+                <div th:each="product : ${selectedProducts}">
+                    <input type="hidden" th:id="productId + ${product.productId} + changedCount" class="changedCounts" th:value="${product.count}">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="location.href = '/main'">취소(메인)</button>
+                <button type="button" class="btn btn-primary" onclick="quantityChange()">최대수량으로 변경</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--//-->
+
+
+<!-- 정해지지 않은 푸터 -->
+<footer class="mt-5">
+    <div>뭐 넣을지 모름
+        <p>
+            to do...
+        </p>
+        카테고리 정렬, 체크박스 선택 ,주문 링크,
+    </div>
+</footer>
+<div th:each="cartId : ${cartIds}">
+    <input type="hidden" class="cartIds" th:value="${cartId}">
+</div>
+
+</body>
+
+</html>

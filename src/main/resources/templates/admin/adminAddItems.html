@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/css/adminAdditems.css">
+
+    <script src="/js/additems.js"></script>
+
+
+    <title>관리자 페이지</title>
+
+
+
+</head>
+
+<body>
+
+<header class="grid-container-header">
+    <div class="top_util">
+        <strong>관리자 화면</strong>
+        <span> | </span>
+        <a href="#">로그아웃</a>
+
+    </div>
+    <div class="header_inner">
+        <img src="img/log.jpg" alt="포맨토 로고">
+
+        <div class="admin">
+            <h1>관리자 페이지</h1>
+        </div>
+
+        <div>
+            <img src="https://pics.gmarket.co.kr/pc/single/kr/common/image__header-mypage.svg" alt="마이페이지 아이콘">
+
+            <div class="cart1">
+                <img src="https://pics.gmarket.co.kr/pc/single/kr/common/image__header-cart.svg" alt="장바구니">
+            </div>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="grid-container">
+    <aside class="grid-container-aside">
+        <div class="admin-list">
+            <h3>관리자 목록</h3>
+
+            <ul>
+                <li>
+                    <a href="#">회원관리</a>
+                </li>
+                <hr>
+                <li>
+                    <a href="#">상품등록</a>
+                </li>
+                <hr>
+                <li>
+                    <a href="#">상품목록</a>
+                </li>
+                <hr>
+                <li>
+                    <a href="#">주문내역</a>
+                </li>
+                <hr>
+                <li>
+                    <a href="#">게시판</a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <main class="grid-container-main">
+
+        <!--                     enctype="multipart/form-data"-->
+        <form method="post" enctype="multipart/form-data"  role="form" action="admin/adminAdditems"  >
+            <fieldset>
+                <legend id="container"><h1>제품 그룹</h1></legend>
+
+                <ul id="add" autocapitalize="off">
+                    <div>
+                        <li>
+                            <label for="product_group_id" >상품그룹일련번호 <strong>(필수)</strong></label>
+                            <input class="form-contorl" type="number" id="product_group_id" name="product_group_id" placeholder="1.스킨/2.메이크업/3.썬/4.바디/5.헤어/6.클렌징/7.향수" autofocus required>
+                        </li>
+                    </div>
+                    <hr>
+                    <div>
+                        <li>
+                            <label for="category_detail_id">상품 분류<strong>필수</strong></label>
+                            <select class="form-contorl" id="category_detail_id" name="category_detail_id" required>
+                                <option value="skinCare" selected>스킨케어</option>
+                                <option value="makeUp">메이크업</option>
+                                <option value="sunCare">선케어</option>
+                                <option value="bodyCare">바디케어</option>
+                                <option value="hairCare">헤어케어</option>
+                                <option value="cleansing">클렌징</option>
+                                <option value="purfume">향수</option>
+                            </select>
+                        </li>
+                    </div>
+                    <hr>
+                    <li>
+                        <label for="name">제품이름<strong>(필수)</strong></label>
+                        <input class="form-contorl" type="text" id="name" name="name" required>
+                    </li>
+                    <hr>
+                    <li>
+                        <label for="details">상세내용</label>
+                        <textarea class="form-contorl" type="textarea" cols="50" rows="4"  id="details" name="details" required>
+                                </textarea>
+                        <hr>
+                        <!-- <li>
+                            <label for="prd_sale">세일가격 </label>
+                            <input class="form-contorl" type="text" id="prd_sale" placeholder="원가격입력" >
+                            <span>원</span><br>
+                            <input type="text" id="prd_rate" placeholder="할인률">
+                            <span>%</span><br>
+
+                        </li> -->
+
+                    <li>
+                        <label for="weight">내용물의 용량 또는 중량</label>
+                        <input class="form-contorl" type="text" id="weight" name="weight" required >
+                        <span>mL</span>
+                    </li>
+                    <hr>
+                    <li>
+                        <label for="summary">제품개요(사용범위)</label>
+                        <input class="form-contorl" type="text" id="summary" name="summary" required>
+                    </li>
+                    <hr>
+                    <li>
+                        <label for="period">사용기간(개봉 후 사용기간)</label>
+                        <input class="form-contorl" type="text" id="period" name="period" required>
+                    </li>
+                    <hr>
+                    <li>
+                        <label for="manual">사용방법</label>
+                        <input class="form-contorl" type="text" id="manual" name="manual" required>
+                    </li>
+                    <hr>
+
+                    <li>
+                        <label for="manufacturer">판매업자/제조업자</label>
+                        <input class="form-contorl" type="text" id="manufacturer" name="manufacturer" required>
+                    </li>
+                    <hr>
+                    <li>
+                        <label for="country">제조국</label>
+                        <input class="form-contorl" type="text" id="country" name="country" required>
+                    </li>
+                    <hr>
+                    <li>
+                        <label for="precautions">주의사항</label>
+                        <input class="form-contorl" type="text" id="precautions" name="precautions" required>
+                    </li>
+                    <hr>
+                    <li>
+                        <label for="assurance">품질보증기준</label>
+                        <input class="form-contorl" type="text" id="assurance" name="assurance" required>
+                    </li>
+                    <hr>
+                    <li>
+                        <label for="counselor_phone_number">소비자상담전화번호</label>
+                        <input class="form-contorl" type="text" id="counselor_phone_number" name="counselor_phone_number" required>
+                    </li>
+                    <hr>
+                    <li>
+                        <label for="sale_count">판매량</label>
+                        <input class="form-contorl" type="number" id="sale_count" name="sale_count" required>
+                        <span>개</span>
+                    </li>
+                    <hr>
+                    <li>
+                        <label for="company">회사명</label>
+                        <input class="form-contorl" type="text" id="company" name="company" required>
+                    </li>
+                    <hr>
+                    <li>
+                        <label for="price">가격</label>
+                        <input class="form-contorl" type="number" id="price" name="price" required>
+                        <span>원</span>
+                    </li>
+                    <hr>
+                </ul>
+            </fieldset>
+
+
+
+            <fieldset>
+
+                <legend id="container_img"><h1>상품설명 이미지<strong>상품이미지 (다수)</strong> </h1></legend>
+                <ul id="add_img" autocapitalize="off">
+                    <li>
+                        <label for="img_tb">이미지일련번호</label>
+                        <input class="form-contorl" type="number" id="img_tb" name="img_id" required>
+                    </li>
+                    <hr>
+                    <li>
+                        <label for="product_group_id">제품그룹일련번호</label>
+                        <input class="form-contorl" type="number" id="product_group_id1" name="product_group_id1" placeholder="1.메이크업/2.썬/3.바디/4.헤어/5.클렌징/6.향수" >
+                    </li>
+                    <hr>
+
+                    <li>
+                        <label for="src">링크</label>
+                        <input class="form-contorl" type="file" id="src" name="src"   required  />
+
+                    </li>
+
+                </ul>
+            </fieldset>
+            <hr>
+
+
+            <fieldset>
+                <legend id="container_option"><h1>제품상세<strong>(옵션)</strong></h1><span><button type="button" id="addOptionalProduct">상품옵션 추가</button></span></legend>
+                <ul id="add_option" autocapitalize="off">
+                    <hr>
+
+
+                    <!-- <div class="buttons"> -->
+                    <div>
+                        <li>
+                            <label for="product_id">제품일련번호</label>
+                            <input class="form-contorl" type="text" id="product_id" name="product_id" >
+                            <!-- <input type="button" class="btnAdd" value="Add"><br> -->
+                        </li>
+                    </div>
+
+                    <hr>
+                    <li>
+                        <label for="product_group_id">제품그룹일련번호</label>
+                        <input class="form-contorl" type="text" id="product_group_id2" name="product_group_id2" placeholder="1.메이크업/2.썬/3.바디/4.헤어/5.클렌징/6.향수"  >
+                    </li>
+                    <hr>
+                    <li>
+                        <label for="price">가격</label>
+                        <input class="form-contorl" type="number" id="price_option" name="price_option" >
+                        <span>원</span>
+                    </li>
+                    <hr>
+                    <li>
+                        <label for="quantity">재고량</label>
+                        <input class="form-contorl" type="number" id="quantity" name="quantity" >
+                        <span>개</span>
+                    </li>
+                    <hr>
+                    <li>
+                        <label for="name">제품이름</label>
+                        <input class="form-contorl" type="text" id="name_option" name="name_option" readonly  >
+                    </li>
+                    <hr>
+                    <!--                    <li>-->
+                    <!--                    <li>-->
+                    <!--                        <label for="img_src">이미지</label>-->
+                    <!--                        <input class="form-contorl" type="file" id="img_src" name="img_src" >-->
+                    <!--                    </li>-->
+
+                </ul>
+            </fieldset>
+            <hr>
+
+            <fieldset id="optionalProducts">
+                <legend id="container_option_add"></legend>
+                <!-- 여기에 추가된 제품 옵션 입력 필드들이 추가될 것입니다. -->
+            </fieldset>
+            <hr>
+
+            <div>
+                <input type="submit" value="등록하기">
+                <input type="reset" value="취소하기">
+            </div>
+
+
+        </form>
+    </main>
+
+</div>
+
+
+
+<!-- 정해지지 않은 푸터 -->
+<footer>
+    <div>뭐 넣을지 모름
+        <p>
+            to do...
+        </p>
+        카테고리 정렬, 체크박스 선택 ,주문 링크,
+    </div>
+</footer>
+
+</div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,290 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+
+}
+
+.container {
+
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+main {
+    padding: 20px 0;
+}
+
+.products {
+    margin-bottom: 40px;
+}
+
+.products h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 20px;
+}
+
+.product {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh;
+}
+
+
+* {
+    font-size: 13px;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+
+}
+
+.grid-container {
+    display: grid;
+    grid-template-areas:
+        /* "header header" */
+        "content sidebar"
+        "footer ";
+    grid-template-columns: 1fr 3fr;
+    width: 1020px;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.grid-container-header {
+    display: grid;
+    /* grid-template-areas:
+    "top_util"
+    "header_inner"
+    ; */
+
+    /* grid-template-columns: 1fr 3fr; */
+}
+
+.top_util {
+    width: 900px;
+    height: 30px;
+    text-align: right;
+    margin: auto;
+    /* grid-area: top_util; */
+}
+
+.top_util a {
+    margin: 0px 0px 0px 4px;
+}
+
+.header_inner {
+    /* grid-area: header_inner; */
+    margin: auto;
+    height: 90px;
+    display: flex;
+
+    /* grid-template-columns: auto 1fr; 로고와 검색창 열 생성 */
+}
+
+.header_inner img {
+    width: 246px;
+    height: 40px;
+    margin-top: 15px;
+
+
+
+}
+
+header {
+    height: 160px;
+    grid-area: header;
+    border-bottom: 1px solid black;
+
+}
+
+.top_cartegory {
+    height: 43px;
+    border-top: 1px solid #9999;
+    text-align: center;
+
+
+}
+
+.top_cartegory a {
+    font-size: 15px;
+    margin: 5px;
+
+}
+
+.top_cartegory ul {
+    /* 카테고리 위치 더 나은 방법이 있나 */
+    justify-content: center;
+
+}
+
+
+.grid-container-aside {
+    /* display: grid; */
+    width: 130px;
+    float: left;
+    /* 왼쪽 위치 */
+    padding: 20px 0px 0px 5px;
+
+}
+
+.grid-container-main {
+    /* display: grid; */
+    /* width: 100%; */
+    float: right;
+    /* 추가: 오른쪽에 위치 */
+    padding: 20px 0px;
+
+}
+
+.category {
+    text-align: left;
+
+}
+
+
+main {
+    text-align: center;
+    grid-area: content;
+    padding: 20px;
+}
+
+aside {
+    grid-area: sidebar;
+    margin: 0px;
+
+}
+
+.sidebar .container {
+    position: sticky;
+}
+
+footer {
+    height: 150px;
+    grid-area: footer;
+    background-color: #9999;
+}
+
+ul {
+    line-height: 30px;
+    list-style: none;
+    padding: 0%;
+}
+
+.cart1 {
+    margin: -55px 0px 0px 90px;
+}
+
+.search {
+    position: relative;
+    width: 300px;
+    margin-bottom: 20px;
+    margin: 0px 0px 0px 60px;
+    padding: 15px 30px 0px 20px;
+}
+
+.search input {
+    width: 300px;
+    border: 2px solid #bbb;
+    border-radius: 30px;
+    padding: 10px 12px;
+    font-size: 14px;
+}
+
+.search img {
+    position: absolute;
+    width: 30px;
+    top: 2px;
+    right: 0px;
+    margin: 15px 0px 0px 0px;
+}
+
+a {
+    text-decoration-line: none;
+}
+
+a:link {
+    color: black;
+
+}
+
+a:visited {
+    color: black;
+}
+
+a:hover {}
+
+a:active {
+    color: green
+}
+
+
+
+.main_table {}
+
+
+/* 테이블안 내용 가운데 정렬 */
+td {
+    vertical-align: middle;
+}
+
+
+/* 총 금액 클래스 */
+.totalPrice {
+    height: 100px;
+
+    border-top: solid 3px rgb(128, 228, 128);
+    border-bottom: solid 2px #9999;
+}
+
+.totalPrice p {
+    margin-top: 30px;
+    display: inline-block;
+    width: 220px;
+    height: 100px;
+}
+
+/* .totalPrice span{
+    display: block;
+} */
+.totalPrice span {
+    display: inline-block;
+}
+
+
+.grid-container-main li {
+    /* background-color: #e6e3e399; */
+    text-align: left;
+}
+
+.calendar {
+    height: 80px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    background-color: #efecec99;
+
+}
+
+.chat-bot {
+    position: fixed;
+    margin: -5%;
+    margin-top: 3px;
+
+}

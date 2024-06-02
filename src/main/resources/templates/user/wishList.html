@@ -1,0 +1,250 @@
+<!--세정-->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/cart.css">
+    <title>Document</title>
+</head>
+
+
+<body>
+
+<header class="grid-container-header">
+    <div class="top_util">
+        <strong>이용자 닉네임</strong>
+        <span> | </span>
+        <a>로그아웃</a>
+
+    </div>
+    <div class="header_inner">
+        <img src="https://static.oliveyoung.co.kr/pc-static-root/image/comm/h1_logo.png" alt="올리브영 로고">
+
+        <div class="search">
+            <input type="text" placeholder="검색어 입력">
+            <img src="https://bullang.com/morenvyimg/top_search.svg" alt="Search Icon">
+        </div>
+
+        <div>
+            <img src="https://pics.gmarket.co.kr/pc/single/kr/common/image__header-mypage.svg" alt="마이페이지 아이콘">
+
+            <div class="cart1">
+                <img src="https://pics.gmarket.co.kr/pc/single/kr/common/image__header-cart.svg" alt="장바구니">
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 카테고리 -->
+    <div class="top_cartegory">
+
+        <ul class="nav nav-pills">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button"
+                   aria-expanded="false">카테고리</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#">Separated link</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <!-- <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            </li> -->
+        </ul>
+
+
+    </div>
+
+</header>
+
+
+<div class="grid-container">
+    <aside class="grid-container-aside">
+        <div class="categoryta">
+
+
+            <ul>
+                <li style="margin-bottom: 15px;"><a href="#" style="font-size: 25px;">마이페이지</a></li>
+                <li style="font-size: 17px; font-weight: bolder;">마이쇼핑</li>
+
+                <li><a href="#">주문/배송조회</a></li>
+                <li><a href="#">취소/반품/교환 내역</a></li>
+                <hr>
+                <li><a href="#">장바구니</a></li>
+                <li><a href="#">위시리스트</a></li>
+                <li><a href="#">히스토리</a></li>
+                <hr>
+                <li style="font-size: 18px; font-weight: bolder;">마이활동</li>
+                <li><a href="#">리뷰</a></li>
+                <li><a href="#">QnA</a></li>
+
+
+            </ul>
+        </div>
+    </aside>
+
+
+    <main class="grid-container-main">
+
+
+        <h3 style="  text-align: left; ">위시리스트</h3>
+        <hr>
+
+        <form method="post" action="" >
+
+
+            <div class="main_table">
+                <table class="table" style="margin-top: 20px;">
+                    <thead class="table-light">
+                    <tr>
+                        <th style="text-align: center;"><input type="checkbox" id="checkAll"></th>
+                        <th>상품/옵션 정보</th>
+                        <th>판매가</th>
+                        <th>관리</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr th:each="view : ${wishviews}">
+
+                        <input type="hidden" class="wishIds" th:value="${view.wishId}">
+                        <input type="hidden" class="productGroupIds" th:value="${view.productGroupId}">
+
+                        <td><input type="checkbox" class="chk"></td>
+                        <td style="min-width: 430px; max-width: 430px; height: 100%;  ">
+                            <img src="https://ssl.pstatic.net/melona/libs/1378/1378592/98b3738dc17cc2456043_20240503142548874.png" width="85px" height="85px">
+                            <span th:text="${view.company}">회사이름</span>
+                            <p th:text="${view.name}"> 세럼50ml</p>
+
+
+                        </td>
+                        <!-- <td><select name="count" onchange="alert('수량 변경이 완료되었습니다')"> -->
+                        <td><span class="originalPrice" th:text="${view.price}">5000</span></td>
+                        <td>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" th:data-bs-target="'#exampleModal' + ${view.wishId}">
+                                장바구니</button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" th:id="'exampleModal' + ${view.wishId}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">옵션선택</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="dropdown">
+                                                <button class="btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                                        data-bs-toggle="dropdown" aria-expanded="false" style=" width: 400px;">
+                                                    옵션을 선택해주세요
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" >
+                                                    <li style="width: 400px;" th:each="wishInfo : ${view.productInfos}">
+                                                        <a class="dropdown-item" onclick="optionClick(event)">
+                                                            <input type="hidden" class="productIds" th:value="${wishInfo.productId}">
+                                                            <input type="hidden" class="count" th:value="${wishInfo.count}">
+                                                            <span th:text="${wishInfo.productName}" class="productName"></span>
+                                                            <span  th:text="${wishInfo.productPrice}"></span></a>
+                                                        <!--                                                            <span th:text="${wishInfo.productId}"></span></a>-->
+                                                        <!--  <div th:text="${wishInfo.productName}"></div>
+                                                          <div th:text="${wishInfo.productPrice}"></div>
+                                                          <div th:text="${wishInfo.productId}"></div>-->
+                                                        <!--  <a class="dropdown-item"><span  th:text="${wishOption.productName} "></span> <span th:text="${wishOption.productPrice}"></span></a>-->
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">취소</button>
+                                            <button type="button" class="btn btn-success" onclick="addToCart(this)">장바구니</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </tr>
+
+                    <!-- <script>
+                            //아이디(1개)일때
+
+                        function changeCount() {
+                            var x = document.getElementById("priceCount").value * parseInt(originalPrice.innerText);
+                            document.getElementById("totalPriceResult").innerText = x;
+                                    document.getElementsByClassName
+                        }
+
+                    </script> -->
+
+                </table>
+            </div>
+
+
+            </tbody>
+
+
+            <!-- 메인페이지로 가는 버튼 -->
+            <button class="btn btn-light" style="display: flex; margin-bottom: 15px;">
+                <a href="#">쇼핑 계속 하기</a></button>
+
+
+
+            <!-- 주문, 삭제, 위시리스트 버튼 -->
+            <!-- 선택삭제  -->
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-outline-secondary" formaction="/review" id="selectItemRemove">
+                상품 선택 삭제</button>
+
+
+        </form>
+
+
+        <!-- 공간띄울 목적으로 넣은 의미없는 div -->
+        <div style="height: 200px; ">
+
+            <p>공백이 없어 넣은 높이 200px</p>
+        </div>
+
+
+    </main>
+
+</div>
+
+<!-- 정해지지 않은 푸터 -->
+<footer>
+    <div>뭐 넣을지 모름
+        <p>
+            to do...
+        </p>
+        카테고리 정렬, 체크박스 선택 ,주문 링크,
+    </div>
+</footer>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+<script src="/js/wishList.js"></script>
+</body>
+
+</html>
