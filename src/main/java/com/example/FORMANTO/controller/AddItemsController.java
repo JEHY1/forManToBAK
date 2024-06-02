@@ -1,26 +1,28 @@
 package com.example.FORMANTO.controller;
 
+
 import com.example.FORMANTO.domain.Img;
 import com.example.FORMANTO.domain.Product;
 import com.example.FORMANTO.domain.ProductGroup;
-import com.example.FORMANTO.dto.ProductGroupForm;
-import com.example.FORMANTO.dto.ImgForm;
-import com.example.FORMANTO.dto.ItemOptionForm;
+import com.example.FORMANTO.dto.admin.ImgForm;
+import com.example.FORMANTO.dto.admin.ProductForm;
+import com.example.FORMANTO.dto.admin.ProductGroupForm;
 import com.example.FORMANTO.repository.ImgRepository;
 import com.example.FORMANTO.repository.ProductGroupRepository;
 import com.example.FORMANTO.repository.ProductRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
+import java.security.Principal;
 import java.util.List;
 
 @Slf4j
-//@RequiredArgsConstructor
 @Controller
 
 public class AddItemsController {
@@ -32,17 +34,30 @@ public class AddItemsController {
     @Autowired
     private ProductRepository productRepository;
 
-    @GetMapping("/admin/adminAdditems")
+
+//    private String AdditemsRepository = "redirect:/admin/adminItemList";
+
+
+    @GetMapping("admin/adminAdditems")
     public String newProductGroupForm() {
-        return  "admin/adminAdditems";
+
+        return "/admin/adminAdditems";
     }
 
-    @PostMapping("/admin/adminAdditems/create")
-    public String createProductGroup (ProductGroupForm form, ImgForm form2, ItemOptionForm form3 ) {
+
+    @PostMapping("/adminAdditems/create")
+    public String createProductGroup(ProductGroupForm form, ImgForm form2,
+                                     ProductForm form3) {
+//        @RequestParam("src") MultipartFile[] imges,
+//        @RequestParam("imgSrc") MultipartFile[] imgSrcs
+
+
+        System.err.println("post");
 
         log.info(form.toString() + form2.toString() + form3.toString());
 
         ProductGroup productGroup = ProductGroup.builder()
+//                .productGroupId(form.getProduct_group_id())
                 .categoryDetailId(form.getCategory_detail_id())
                 .name(form.getName())
                 .details(form.getDetails())
@@ -55,27 +70,41 @@ public class AddItemsController {
                 .precautions(form.getPrecautions())
                 .assurance(form.getAssurance())
                 .counselorPhoneNumber(form.getCounselor_phone_number())
-                .saleCount(form.getSale_count())
                 .company(form.getCompany())
-                .groupPrice(form.getPrice())
+                .groupPrice(form.getPrice_group())
+
+                .saleCount(form.getSale_count())
+
+                .repImgSrc(form.getRep_img_src())
+
                 .build();
-        productGroupRepository.save(productGroup);
+
+        productGroup = productGroupRepository.save(productGroup);
+
+        System.err.println("prdouctGroup :" + productGroup);
+
 
         Img img = Img.builder()
-                .productGroupId(form2.getProduct_group_id())
+                .productGroupId(productGroup.getProductGroupId())
                 .src(form2.getSrc())
                 .build();
+
         imgRepository.save(img);
 
+
         Product product = Product.builder()
-                .price(form3.getPrice_option())
+                .productGroupId(productGroup.getProductGroupId())
+                .price(form3.getPrice())
                 .quantity(form3.getQuantity())
-                .name(form3.getName_option())
+                .name(form3.getNameP())
+                .imgSrc(form3.getImg_src())
                 .build();
+
         productRepository.save(product);
 
         return "redirect:/admin/adminAdditems";
     }
+
 
     //dto 엔티티 변환
 
@@ -86,6 +115,7 @@ public class AddItemsController {
 //        additemsImgRepository.save(additemsImg);
 //        itemOptionRepository.save(itemOption);
 //
+
 
 //    @Autowired
 //    private AdditemsImgRepository additemsImgRepository;
@@ -114,6 +144,7 @@ public class AddItemsController {
 //        return "redirect:/adminAdditems/";
 //    }
 
+
 //    @GetMapping("/admin/{product_group_id}")
 //    public String show(@PathVariable Long product_group_id, Model model){
 //        log.info("product_group_id = " + product_group_id);
@@ -122,11 +153,15 @@ public class AddItemsController {
 //        return "admin/adminItemList";
 //    }
 
+
+    //    상품리스트
     @GetMapping("/admin")
-    public String itemList(Model model){
+    public String itemList(Model model) {
         List<ProductGroup> productGroupsEntity = productGroupRepository.findAll();
         model.addAttribute("additemlist", productGroupsEntity);
-        return "admin/adminMenu";
+        return "/admin/adminMenu";
 
     }
+
+
 }

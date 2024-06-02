@@ -1,17 +1,19 @@
-package com.example.FORMANTO.dto;
+package com.example.FORMANTO.dto.admin;
 
 
 import lombok.*;
 
 
-@Data
-@Getter
-//@AllArgsConstructor
-@ToString
+@Getter @Setter @ToString @Data
 public class ProductGroupForm {
 
+
+
     private Long product_group_id;
+
+
     private Long category_detail_id;
+    private String name;
     private String details;
     private String weight;
     private String summary;
@@ -22,20 +24,24 @@ public class ProductGroupForm {
     private String precautions;
     private String assurance;
     private String counselor_phone_number;
-    private int sale_count;
     private String company;
-    private String name;
-    private int price;
+    private int price_group;
 
+    private int sale_count;
 
+    private String rep_img_src;
 
     @Builder
-    public ProductGroupForm(Long product_group_id, Long category_detail_id, String details, String weight, String summary,
-                            String period, String manual, String manufacturer, String country, String precautions, String assurance,
-                            String counselor_phone_number, int sale_count, String company, String name, int price) {
+    public ProductGroupForm (Long product_group_id, Long category_detail_id,
+                             String name, String details, String weight, String summary,
+                             String period, String manual, String manufacturer,
+                             String country, String precautions, String assurance,
+                             String counselor_phone_number,
+                             String company, int price_group, int sale_count, String rep_img_src) {
 
         this.product_group_id = product_group_id;
         this.category_detail_id = category_detail_id;
+        this.name = name;
         this.details = details;
         this.weight = weight;
         this.summary = summary;
@@ -46,19 +52,12 @@ public class ProductGroupForm {
         this.precautions = precautions;
         this.assurance = assurance;
         this.counselor_phone_number = counselor_phone_number;
-        this.sale_count = sale_count;
         this.company = company;
-        this.name = name;
-        this.price = price;
-    }
+        this.price_group = price_group;
 
-/*
-    public Additems toEntity() {
-        return new Additems(category_detail_id, details, weight, summary,
-                period, manual, manufacturer, country, precautions, assurance,
-                counselor_phone_number, sale_count, company, name, price);
-    }
-*/
+        this.sale_count = sale_count;
 
+        this.rep_img_src = rep_img_src;
+    }
 
 }

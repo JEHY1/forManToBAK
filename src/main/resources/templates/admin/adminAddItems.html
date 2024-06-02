@@ -63,7 +63,7 @@
                 </li>
                 <hr>
                 <li>
-                    <a href="#">상품목록</a>
+                    <a href="/admin">상품목록</a>
                 </li>
                 <hr>
                 <li>
@@ -80,36 +80,62 @@
     <main class="grid-container-main">
 
         <!--                     enctype="multipart/form-data"-->
-        <form method="post" enctype="multipart/form-data"  role="form" action="admin/adminAdditems"  >
+        <form method="post"   role="form"    action="/adminAdditems/create"   >
+
+            <!-----------------------------------product Group 파트--------------------->
             <fieldset>
                 <legend id="container"><h1>제품 그룹</h1></legend>
 
                 <ul id="add" autocapitalize="off">
                     <div>
                         <li>
-                            <label for="product_group_id" >상품그룹일련번호 <strong>(필수)</strong></label>
-                            <input class="form-contorl" type="number" id="product_group_id" name="product_group_id" placeholder="1.스킨/2.메이크업/3.썬/4.바디/5.헤어/6.클렌징/7.향수" autofocus required>
+                            <label for="productGroupId" >상품그룹 <strong>(필수)</strong></label>
+                            <select class="form-contorl" id="productGroupId" name="product_group_id" required>
+                                <option value="1" selected>헤어</option>
+                                <option value="2">스킨케어</option>
+                                <option value="3">마스크팩</option>
+                                <option value="4">클렌징</option>
+                                <option value="5">썬케어</option>
+                            </select>
                         </li>
                     </div>
                     <hr>
                     <div>
                         <li>
-                            <label for="category_detail_id">상품 분류<strong>필수</strong></label>
-                            <select class="form-contorl" id="category_detail_id" name="category_detail_id" required>
-                                <option value="skinCare" selected>스킨케어</option>
-                                <option value="makeUp">메이크업</option>
-                                <option value="sunCare">선케어</option>
-                                <option value="bodyCare">바디케어</option>
-                                <option value="hairCare">헤어케어</option>
-                                <option value="cleansing">클렌징</option>
-                                <option value="purfume">향수</option>
+                            <label for="categoryDetailId">상품 분류<strong>필수</strong></label>
+                            <select class="form-contorl" id="categoryDetailId" name="category_detail_id" required>
+                                <option value="1" selected>샴푸/린스</option>
+                                <option value="2">트리트먼트/팩</option>
+                                <option value="3">헤어에센스</option>
+                                <option value="4">염색약/펌</option>
+                                <option value="5">헤어기기/브러시</option>
+                                <option value="6">스타일링</option>
+                                <option value="7">스킨/토너</option>
+                                <option value="8">에센스/세럼/앰플</option>
+                                <option value="9">크림</option>
+                                <option value="10">로션</option>
+                                <option value="11">미스트/오일</option>
+                                <option value="12">스킨케어세트</option>
+                                <option value="13">시트팩</option>
+                                <option value="14">패드</option>
+                                <option value="15">페이셜팩</option>
+                                <option value="16">코팩</option>
+                                <option value="17">패치</option>
+                                <option value="18">클렌징폼/젤</option>
+                                <option value="19">오일/밤</option>
+                                <option value="20">워터/티슈/밀크</option>
+                                <option value="21">필링/스크럽</option>
+                                <option value="22">립&아이리무버</option>
+                                <option value="23">선블록</option>
+                                <option value="24">태닝/애프터선</option>
+
                             </select>
                         </li>
                     </div>
                     <hr>
                     <li>
-                        <label for="name">제품이름<strong>(필수)</strong></label>
-                        <input class="form-contorl" type="text" id="name" name="name" required>
+                        <label for="nameGroup">제품이름<strong>(필수)</strong></label>
+                        <input class="form-contorl" type="text" id="nameGroup" name="name" required>
                     </li>
                     <hr>
                     <li>
@@ -117,14 +143,7 @@
                         <textarea class="form-contorl" type="textarea" cols="50" rows="4"  id="details" name="details" required>
                                 </textarea>
                         <hr>
-                        <!-- <li>
-                            <label for="prd_sale">세일가격 </label>
-                            <input class="form-contorl" type="text" id="prd_sale" placeholder="원가격입력" >
-                            <span>원</span><br>
-                            <input type="text" id="prd_rate" placeholder="할인률">
-                            <span>%</span><br>
 
-                        </li> -->
 
                     <li>
                         <label for="weight">내용물의 용량 또는 중량</label>
@@ -185,34 +204,44 @@
                     </li>
                     <hr>
                     <li>
-                        <label for="price">가격</label>
-                        <input class="form-contorl" type="number" id="price" name="price" required>
+                        <label for="pricegroup">가격</label>
+                        <input class="form-contorl" type="number" id="pricegroup" name="price_group" required>
                         <span>원</span>
                     </li>
                     <hr>
+                    <li>
+                        <label for="repImgSrc">이미지</label>
+                        <input class="form-contorl" type="file" id="repImgSrc" name="rep_img_src" required>
+                    </li>
                 </ul>
             </fieldset>
 
 
-
+            <!-----------------------------Img 파트--------------------->
             <fieldset>
 
                 <legend id="container_img"><h1>상품설명 이미지<strong>상품이미지 (다수)</strong> </h1></legend>
                 <ul id="add_img" autocapitalize="off">
-                    <li>
-                        <label for="img_tb">이미지일련번호</label>
-                        <input class="form-contorl" type="number" id="img_tb" name="img_id" required>
-                    </li>
+                    <!--                    <li>-->
+                    <!--                        <label for="img_tb">이미지일련번호</label>-->
+                    <!--                        <input class="form-contorl" type="number" id="img_tb" name="imgId" required>-->
+                    <!--                    </li>-->
                     <hr>
-                    <li>
-                        <label for="product_group_id">제품그룹일련번호</label>
-                        <input class="form-contorl" type="number" id="product_group_id1" name="product_group_id1" placeholder="1.메이크업/2.썬/3.바디/4.헤어/5.클렌징/6.향수" >
-                    </li>
-                    <hr>
+                    <!--                    <li>-->
+                    <!--                        <label for="product_group_id1" >상품그룹 <strong></strong></label>-->
+                    <!--                        <select class="form-contorl" id="product_group_id1" name="product_group_id" required>-->
+                    <!--                            <option value="1" selected>헤어</option>-->
+                    <!--                            <option value="2">스킨케어</option>-->
+                    <!--                            <option value="3">마스크팩</option>-->
+                    <!--                            <option value="4">클렌징</option>-->
+                    <!--                            <option value="5">썬케어</option>-->
+                    <!--                        </select>-->
+                    <!--                    </li>-->
+                    <!--                    <hr>-->
 
                     <li>
                         <label for="src">링크</label>
-                        <input class="form-contorl" type="file" id="src" name="src"   required  />
+                        <input class="form-contorl" type="file" id="src" name="src"   required >
 
                     </li>
 
@@ -221,30 +250,36 @@
             <hr>
 
 
-            <fieldset>
-                <legend id="container_option"><h1>제품상세<strong>(옵션)</strong></h1><span><button type="button" id="addOptionalProduct">상품옵션 추가</button></span></legend>
-                <ul id="add_option" autocapitalize="off">
-                    <hr>
+            <!---------------------------Product 파트------------------------------------->
+            <fieldset >
 
-
-                    <!-- <div class="buttons"> -->
-                    <div>
-                        <li>
-                            <label for="product_id">제품일련번호</label>
-                            <input class="form-contorl" type="text" id="product_id" name="product_id" >
-                            <!-- <input type="button" class="btnAdd" value="Add"><br> -->
-                        </li>
-                    </div>
-
+                <legend id="container_option"><h1>제품상세<strong>(옵션)</strong></h1><span>
+                    <button type="button" onclick="addOptionFieldset()" id="addOptionalProduct">상품옵션 추가</button></span></legend>
+                <ul id="optionalProducts" autocapitalize="off">
                     <hr>
-                    <li>
-                        <label for="product_group_id">제품그룹일련번호</label>
-                        <input class="form-contorl" type="text" id="product_group_id2" name="product_group_id2" placeholder="1.메이크업/2.썬/3.바디/4.헤어/5.클렌징/6.향수"  >
-                    </li>
-                    <hr>
+                    <!--                    <div>-->
+                    <!--                        <li>-->
+                    <!--                            <label for="product_id">제품일련번호</label>-->
+                    <!--                            <input class="form-contorl" type="text" id="product_id" name="product_id" >-->
+
+                    <!--                        </li>-->
+                    <!--                    </div>-->
+
+                    <!--                    <hr>-->
+                    <!--                    <li>-->
+                    <!--                        <label for="productGroupId">제품그룹일련번호</label>-->
+                    <!--                        <select class="form-contorl" id="productGroupId" name="product_group_id" required>-->
+                    <!--                            <option value="1" selected>헤어</option>-->
+                    <!--                            <option value="2">스킨케어</option>-->
+                    <!--                            <option value="3">마스크팩</option>-->
+                    <!--                            <option value="4">클렌징</option>-->
+                    <!--                            <option value="5">썬케어</option>-->
+                    <!--                        </select>-->
+                    <!--                    </li>-->
+                    <!--                    <hr>-->
                     <li>
                         <label for="price">가격</label>
-                        <input class="form-contorl" type="number" id="price_option" name="price_option" >
+                        <input class="form-contorl" type="number" id="price" name="price" >
                         <span>원</span>
                     </li>
                     <hr>
@@ -256,24 +291,23 @@
                     <hr>
                     <li>
                         <label for="name">제품이름</label>
-                        <input class="form-contorl" type="text" id="name_option" name="name_option" readonly  >
+                        <input class="form-contorl" type="text" id="name" name="nameP" >
                     </li>
                     <hr>
-                    <!--                    <li>-->
-                    <!--                    <li>-->
-                    <!--                        <label for="img_src">이미지</label>-->
-                    <!--                        <input class="form-contorl" type="file" id="img_src" name="img_src" >-->
-                    <!--                    </li>-->
+                    <li>
+                        <label for="imgSrc">이미지</label>
+                        <input class="form-contorl" type="file" id="imgSrc" name="img_src"  >
+                    </li>
 
                 </ul>
             </fieldset>
             <hr>
 
-            <fieldset id="optionalProducts">
-                <legend id="container_option_add"></legend>
-                <!-- 여기에 추가된 제품 옵션 입력 필드들이 추가될 것입니다. -->
-            </fieldset>
-            <hr>
+            <!--            <fieldset >-->
+            <!--                <legend id="container_option_add"></legend>-->
+            <!--                &lt;!&ndash; 여기에 추가된 제품 옵션 입력 필드들이 추가될 것입니다. &ndash;&gt;-->
+            <!--            </fieldset>-->
+            <!--            <hr>-->
 
             <div>
                 <input type="submit" value="등록하기">
